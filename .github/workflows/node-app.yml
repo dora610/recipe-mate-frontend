@@ -11,9 +11,6 @@ on:
 jobs:
   build-frontend-react-app:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: recipe-mate-frontend
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
