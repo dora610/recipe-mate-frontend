@@ -1,0 +1,25 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node backend
+
+name: Recipe-mate reactjs frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-frontend-react-app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: recipe-mate-frontend
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: tree
+      - run: npm ci
+      - run: npm run build
