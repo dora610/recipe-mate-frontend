@@ -187,7 +187,7 @@ function AddRecipe() {
   const addIngredient = (e) => {
     e.stopPropagation();
     const ingr = ingrRef.current.value;
-    if (ingr && !ingr.includes(',')) {
+    if (ingr) {
       setIngrArr([...ingrArr, ingr]);
       ingrRef.current.value = '';
     }
@@ -195,7 +195,8 @@ function AddRecipe() {
   const addSteps = (e) => {
     e.stopPropagation();
     const step = stepsRef.current.value;
-    if (step && !step.includes(',')) {
+    if (step) {
+      console.log(step);
       setSteps([...steps, step]);
       stepsRef.current.value = '';
     }
@@ -283,7 +284,7 @@ function AddRecipe() {
                 id="description"
                 cols="20"
                 rows="3"
-                className="col-span-3 px-4 py-2 mt-3 rounded-lg border-stone-200 bg-fuchsia-50 hover:bg-stone-100/50 hover:border-fuchsia-200"
+                className="col-span-3 px-4 py-2 mt-3 rounded-lg border-stone-200 bg-fuchsia-50 hover:bg-stone-100/50 hover:border-fuchsia-200 focus:ring-1 focus:ring-fuchsia-500 focus:border-fuchsia-500"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               ></textarea>
@@ -439,12 +440,16 @@ function AddRecipe() {
           </div>
 
           {(function () {
-            let btnLable = isUpdateRecipe ? 'Update Recipe' : 'Add Recipe';
+            let btnLable = isLoading
+              ? 'in progress...'
+              : isUpdateRecipe
+              ? 'Update Recipe'
+              : 'Add Recipe';
             return (
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn-primary w-1/3"
+                className="btn-primary w-1/3 disabled:bg-yellow-500"
               >
                 {btnLable}
               </button>

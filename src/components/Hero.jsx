@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 function Hero() {
   return (
@@ -9,12 +10,10 @@ function Hero() {
       <h3 className="text-base font-light text-slate-200">
         Best Place to learn and share recipes
       </h3>
-      <div className="flex justify-center gap-4 my-4 flex-wrap">
-        <button className="btn-hero">
-          <Link to="recipe/addrecipe">Add Recipe</Link>
-        </button>
-        <button className="btn-hero">Find new recipe</button>
-      </div>
+      <h3 className="text-3xl leading-relaxed mb-4 text-fuchsia-200">
+        Get your recipe today
+      </h3>
+      <SearchBar />
     </div>
   );
 }

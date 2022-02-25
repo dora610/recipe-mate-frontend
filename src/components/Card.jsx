@@ -39,7 +39,7 @@ function Card({ recipe }) {
         <img
           src={recipe?.photo?.square}
           alt="recipe img"
-          className="object-cover w-full rounded-md"
+          className="object-cover w-full rounded-t-md"
         />
       </div>
       <div className="card-body pb-6">
