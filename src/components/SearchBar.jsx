@@ -1,16 +1,57 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../backend';
+import useAuth from '../hooks/useAuth';
+import handleHttpErrorResp from '../utils/handleErrorResponse';
 
 function SearchBar() {
-  const [searchText, setSearchText] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchtext, setSearchtext] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const setTimeoutIdRef = useRef();
+  const controllerRef = useRef();
 
-  const submithandler = (e) => {
-    e.preventDefault();
-    console.log('search clicked');
+  useEffect(() => {
+    if (searchtext) {
+      if (setTimeoutIdRef.current) {
+        clearTimeout(setTimeoutIdRef.current);
+        if (controllerRef.current) {
+          controllerRef.current.abort();
+        }
+      }
+      setTimeoutIdRef.current = setTimeout(() => {
+        fetchQuery(searchtext);
+      }, 1500);
+    }
+  }, [searchtext]);
+
+  const fetchQuery = async (param) => {
+    try {
+      controllerRef.current = new AbortController();
+      setIsLoading(true);
+      const response = await axios.get(`${API}/search/recipe?name=${param}`, {
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
+          auth: user.userId,
+          'Content-Type': 'application/json',
+        },
+        signal: controllerRef.current.signal,
+      });
+      setSearchResults(response.data);
+    } catch (err) {
+      console.error(handleHttpErrorResp(err));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const submithandler = () => {
+    setSearchtext(searchtext);
   };
 
   const showRecipe = (id) => {
@@ -21,33 +62,38 @@ function SearchBar() {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
       if (
         selectedResultIndex < 0 ||
-        selectedResultIndex === searchResult.length - 1
+        selectedResultIndex === searchResults.length - 1
       ) {
         setSelectedResultIndex(0);
       } else {
         setSelectedResultIndex(selectedResultIndex + 1);
       }
+      return;
     }
+
     if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       if (selectedResultIndex <= 0) {
-        setSelectedResultIndex(searchResult.length - 1);
+        setSelectedResultIndex(searchResults.length - 1);
       } else {
         setSelectedResultIndex(selectedResultIndex - 1);
       }
+      return;
     }
 
     if (e.key === 'Enter') {
-      console.log(searchResult[selectedResultIndex]);
-      // showRecipe() <= pass recipe id here
+      if (selectedResultIndex < 0) {
+        setSearchtext(searchtext);
+      } else {
+        showRecipe(searchResults[selectedResultIndex]._id);
+      }
+      return;
     }
 
     if (e.key === 'Escape') {
-      setSearchResult([]);
+      setSearchtext('');
     }
-  };
-
-  const clickhandler = (id) => {
-    // showRecipe(id) <= pass recipe id here
+    setSelectedResultIndex(-1);
+    setSearchResults([]);
   };
 
   return (
@@ -61,8 +107,8 @@ function SearchBar() {
           name="content"
           id="content"
           className="border-2 border-white/50 h-full rounded-l-md w-full focus:outline-none focus:ring-0 focus:ring-fuchsia-500 focus:border-fuchsia-500"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          value={searchtext}
+          onChange={(e) => setSearchtext(e.target.value)}
         />
         <button
           onClick={submithandler}
@@ -72,19 +118,22 @@ function SearchBar() {
           <MdSearch />
         </button>
       </div>
-      <ul className="absolute z-10 w-3/5 top-12 rounded-sm shadow-xl bg-white flex flex-col">
-        {searchResult.length > 0 &&
-          searchResult.map((res, index) => (
+      <ul className="absolute z-10 lg:w-2/5 md:w-2/3 w-full top-12 rounded-sm shadow-xl bg-white flex flex-col">
+        {isLoading ? (
+          <li>loading results...</li>
+        ) : (
+          searchResults.map((searchresult, index) => (
             <li
               key={index}
-              onClick={() => clickhandler(index)}
+              onClick={() => showRecipe(searchresult._id)}
               className={`px-4 py-2 text-left text-slate-700 hover:bg-slate-300 ${
                 selectedResultIndex === index ? 'bg-slate-300' : ''
               }`}
             >
-              {res}
+              {searchresult.name}
             </li>
-          ))}
+          ))
+        )}
       </ul>
     </div>
   );
