@@ -4,104 +4,21 @@ import { MdSearch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../backend';
 import useAuth from '../hooks/useAuth';
+import useSearchQuery from '../hooks/useSearchQuery';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 import Loader from './Loader';
 
 function SearchBar() {
-  const [searchInput, setSearchInput] = useState('');
-  const [searchtext, setSearchtext] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const setTimeoutIdRef = useRef();
-  const controllerRef = useRef();
-
-  useEffect(() => {
-    if (searchtext) {
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-      fetchQuery(searchtext);
-    }
-  }, [searchtext]);
-
-  const fetchQuery = async (param) => {
-    try {
-      controllerRef.current = new AbortController();
-      setIsLoading(true);
-      const response = await axios.get(`${API}/search/recipe?name=${param}`, {
-        headers: {
-          Authorization: `Bearer ${user.jwt}`,
-          auth: user.userId,
-          'Content-Type': 'application/json',
-        },
-        signal: controllerRef.current.signal,
-      });
-      setSearchResults(response.data);
-    } catch (err) {
-      console.error(handleHttpErrorResp(err));
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const inputHandler = (e) => {
-    setSearchInput(e.target.value);
-    if (setTimeoutIdRef.current) {
-      clearTimeout(setTimeoutIdRef.current);
-    }
-    setTimeoutIdRef.current = setTimeout(() => {
-      setSearchtext(e.target.value);
-    }, 1500);
-  };
-
-  const submithandler = () => {
-    setSearchtext(searchInput);
-  };
-
-  const showRecipe = (id) => {
-    navigate(`/recipe/${id}`);
-  };
-
-  const keyUpHandler = (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      if (
-        selectedResultIndex < 0 ||
-        selectedResultIndex === searchResults.length - 1
-      ) {
-        setSelectedResultIndex(0);
-      } else {
-        setSelectedResultIndex(selectedResultIndex + 1);
-      }
-      return;
-    }
-
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      if (selectedResultIndex <= 0) {
-        setSelectedResultIndex(searchResults.length - 1);
-      } else {
-        setSelectedResultIndex(selectedResultIndex - 1);
-      }
-      return;
-    }
-
-    if (e.key === 'Enter') {
-      if (selectedResultIndex < 0) {
-        setSearchtext(searchInput);
-      } else {
-        showRecipe(searchResults[selectedResultIndex]._id);
-      }
-      return;
-    }
-
-    if (e.key === 'Escape') {
-      setSearchtext('');
-    }
-    setSelectedResultIndex(-1);
-    setSearchResults([]);
-  };
+  const {
+    keyUpHandler,
+    searchInput,
+    inputHandler,
+    submithandler,
+    searchResults,
+    showRecipe,
+    isLoading,
+    selectedResultIndex,
+  } = useSearchQuery();
 
   return (
     <div
@@ -126,9 +43,8 @@ function SearchBar() {
         </button>
       </div>
 
-      {isLoading ? (
-        <Loader />
-      ) : (
+      <Loader isLoading={isLoading} />
+      {!isLoading && (
         <ul className="absolute z-10 lg:w-2/5 md:w-2/3 w-full top-12 rounded-sm shadow-xl bg-white flex flex-col">
           {searchResults.map((searchresult, index) => (
             <li

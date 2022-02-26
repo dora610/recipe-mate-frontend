@@ -1,20 +1,22 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import { DateTime } from 'luxon';
-import useFetchData from '../hooks/useFetchData';
-import NotFound from './NotFound';
-import IngrComponent from '../components/IngrComponent';
-import StepsComponent from '../components/StepsComponent';
+import React, { useContext, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
-import recipeContext from '../context/recipeContext';
-import { MODIFY_RECIPE } from '../context/actions.types';
 import { FiEdit3 } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
-import axios from 'axios';
-import { API } from '../backend';
-import useAuth from '../hooks/useAuth';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { API } from '../backend';
+import IngrComponent from '../components/IngrComponent';
+import Modal from '../components/Modal';
+import StepsComponent from '../components/StepsComponent';
+import { MODIFY_RECIPE } from '../context/actions.types';
+import { useModal } from '../context/modalContext';
+import recipeContext from '../context/recipeContext';
+import useAuth from '../hooks/useAuth';
+import useFetchData from '../hooks/useFetchData';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
+import NotFound from './NotFound';
 
 function ShowRecipe() {
   const [isDescMinimized, setIsDescMinimized] = useState(true);
@@ -22,6 +24,7 @@ function ShowRecipe() {
   const [state, dispatch] = useContext(recipeContext);
   const navigate = useNavigate();
   let { user } = useAuth();
+  const { openModalhandler } = useModal();
 
   if (!params.recipeId) {
     return <NotFound />;
@@ -111,10 +114,13 @@ function ShowRecipe() {
                 {recipe?.createdBy?.fullName}
               </h3>
 
-              <div className="text-mini flex gap-3 justify-evenly items-center my-2">
+              <button
+                className="badge text-mini flex gap-3 justify-evenly items-center my-2"
+                onClick={openModalhandler}
+              >
                 <FaRegStar />
                 {recipe?.rating > 0 ? recipe?.rating : '--'}
-              </div>
+              </button>
 
               <div className="grid grid-cols-2 w-full text-primary mt-6">
                 <p>
@@ -158,6 +164,10 @@ function ShowRecipe() {
           </div>
         </>
       )}
+
+      <Modal>
+        <h2>Wanna rate this recipe?</h2>
+      </Modal>
     </div>
   );
 }
