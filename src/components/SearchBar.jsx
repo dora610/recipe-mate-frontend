@@ -7,6 +7,7 @@ import useAuth from '../hooks/useAuth';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
 function SearchBar() {
+  const [searchInput, setSearchInput] = useState(''); // for input field
   const [searchtext, setSearchtext] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -18,15 +19,10 @@ function SearchBar() {
 
   useEffect(() => {
     if (searchtext) {
-      if (setTimeoutIdRef.current) {
-        clearTimeout(setTimeoutIdRef.current);
-        if (controllerRef.current) {
-          controllerRef.current.abort();
-        }
+      if (controllerRef.current) {
+        controllerRef.current.abort();
       }
-      setTimeoutIdRef.current = setTimeout(() => {
-        fetchQuery(searchtext);
-      }, 1500);
+      fetchQuery(searchtext);
     }
   }, [searchtext]);
 
@@ -50,8 +46,18 @@ function SearchBar() {
     }
   };
 
+  const inputHandler = (e) => {
+    setSearchInput(e.target.value);
+    if (setTimeoutIdRef.current) {
+      clearTimeout(setTimeoutIdRef.current);
+    }
+    setTimeoutIdRef.current = setTimeout(() => {
+      setSearchtext(e.target.value);
+    }, 1500);
+  };
+
   const submithandler = () => {
-    setSearchtext(searchtext);
+    setSearchtext(searchInput);
   };
 
   const showRecipe = (id) => {
@@ -82,7 +88,7 @@ function SearchBar() {
 
     if (e.key === 'Enter') {
       if (selectedResultIndex < 0) {
-        setSearchtext(searchtext);
+        setSearchtext(searchInput);
       } else {
         showRecipe(searchResults[selectedResultIndex]._id);
       }
@@ -107,8 +113,8 @@ function SearchBar() {
           name="content"
           id="content"
           className="border-2 border-white/50 h-full rounded-l-md w-full focus:outline-none focus:ring-0 focus:ring-fuchsia-500 focus:border-fuchsia-500"
-          value={searchtext}
-          onChange={(e) => setSearchtext(e.target.value)}
+          value={searchInput}
+          onChange={inputHandler}
         />
         <button
           onClick={submithandler}
