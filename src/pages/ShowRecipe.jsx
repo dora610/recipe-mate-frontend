@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { API } from '../backend';
 import IngrComponent from '../components/IngrComponent';
 import Modal from '../components/Modal';
+import StarRatingForm from '../components/StarRatingForm';
 import StepsComponent from '../components/StepsComponent';
 import { MODIFY_RECIPE } from '../context/actions.types';
 import { useModal } from '../context/modalContext';
@@ -166,7 +167,9 @@ function ShowRecipe() {
       )}
 
       <Modal>
-        <h2>Wanna rate this recipe?</h2>
+        <h2 className="text-lg font-bold">Want to rate this recipe?</h2>
+        <p>Please submit your rating</p>
+        <StarRatingForm />
       </Modal>
     </div>
   );
