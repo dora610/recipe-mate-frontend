@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { API } from '../backend';
 import useAuth from '../hooks/useAuth';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
+import Loader from './Loader';
 
 function SearchBar() {
-  const [searchInput, setSearchInput] = useState(''); // for input field
+  const [searchInput, setSearchInput] = useState('');
   const [searchtext, setSearchtext] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -124,11 +125,12 @@ function SearchBar() {
           <MdSearch />
         </button>
       </div>
-      <ul className="absolute z-10 lg:w-2/5 md:w-2/3 w-full top-12 rounded-sm shadow-xl bg-white flex flex-col">
-        {isLoading ? (
-          <li>loading results...</li>
-        ) : (
-          searchResults.map((searchresult, index) => (
+
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ul className="absolute z-10 lg:w-2/5 md:w-2/3 w-full top-12 rounded-sm shadow-xl bg-white flex flex-col">
+          {searchResults.map((searchresult, index) => (
             <li
               key={index}
               onClick={() => showRecipe(searchresult._id)}
@@ -138,9 +140,9 @@ function SearchBar() {
             >
               {searchresult.name}
             </li>
-          ))
-        )}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
