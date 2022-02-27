@@ -12,7 +12,7 @@ import handleHttpErrorResp from '../utils/handleErrorResponse';
 function Card({ recipe }) {
   const { user } = useAuth();
   const [isSavedRecipe, setIsSavedRecipe] = useState(
-    recipe.savedby.includes(user.userId)
+    recipe.savedby.includes(user?.userId)
   );
 
   const saveRecipeHandler = () => {

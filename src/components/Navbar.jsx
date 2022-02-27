@@ -26,7 +26,6 @@ function Navbar() {
 
   const clickHandler = (e) => {
     if (e.target.classList.contains('signout')) {
-      console.log('dsssdasd');
       signOut()
         .then((res) => {
           toast.success('Signed out');

@@ -36,6 +36,7 @@ function ShowRecipe() {
   );
 
   let recipe = data?.recipe;
+  let rating = data?.rating;
 
   if (error) {
     return <NotFound />;
@@ -120,7 +121,7 @@ function ShowRecipe() {
                 onClick={openModalhandler}
               >
                 <FaRegStar />
-                {recipe?.rating > 0 ? recipe?.rating : '--'}
+                {Math.trunc(rating * 100) / 100 ?? '--'}
               </button>
 
               <div className="grid grid-cols-2 w-full text-primary mt-6">
