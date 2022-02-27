@@ -22,7 +22,14 @@ function Home() {
       <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">
         {data.recipes &&
           data.recipes.map((recipe, index) => (
-            <Card key={index} recipe={recipe} />
+            <Card
+              key={index}
+              recipe={recipe}
+              rating={
+                data.ratings.filter(({ _id, rating }) => _id === recipe._id)[0]
+                  .rating
+              }
+            />
           ))}
       </div>
     </>

@@ -9,7 +9,7 @@ import useAuth from '../hooks/useAuth';
 import { DateTime } from 'luxon';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
-function Card({ recipe }) {
+function Card({ recipe, rating }) {
   const { user } = useAuth();
   const [isSavedRecipe, setIsSavedRecipe] = useState(
     recipe.savedby.includes(user?.userId)
@@ -55,7 +55,7 @@ function Card({ recipe }) {
 
           <div className="badge">
             <FaStar className="fill-yellow-400" />
-            <p className="">{recipe?.rating > 0 ? recipe?.rating : '--'}</p>
+            <p className="">{Math.trunc(rating * 100) / 100 ?? '--'}</p>
           </div>
         </div>
 
