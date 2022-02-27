@@ -9,8 +9,9 @@
 
 .inner-modal {
   padding: 20px 25px;
-  background-color: rgba(255, 255, 255, 0.75);
-  background-clip: blur(40px);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 10px;
   display: flex;
   flex-direction: column;

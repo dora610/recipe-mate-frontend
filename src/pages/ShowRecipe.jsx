@@ -167,9 +167,7 @@ function ShowRecipe() {
       )}
 
       <Modal>
-        <h2 className="text-lg font-bold">Want to rate this recipe?</h2>
-        <p>Please submit your rating</p>
-        <StarRatingForm />
+        <StarRatingForm recipeId={recipe?._id} />
       </Modal>
     </div>
   );
