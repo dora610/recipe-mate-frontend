@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import { API } from '../backend';
 import IngrComponent from '../components/IngrComponent';
 import Modal from '../components/Modal';
+import RatingBar from '../components/RatingBar';
+import RatingDash from '../components/RatingDash';
 import StarRatingForm from '../components/StarRatingForm';
 import StepsComponent from '../components/StepsComponent';
 import { MODIFY_RECIPE } from '../context/actions.types';
@@ -32,11 +34,10 @@ function ShowRecipe() {
   }
   let [{ data, isLoading, error }, setUrl] = useFetchData(
     `recipe/${params.recipeId}`,
-    null
+    { recipe: null, ratings: [], reviews: [] }
   );
 
-  let recipe = data?.recipe;
-  let rating = data?.rating;
+  let { recipe, ratings, reviews } = data;
 
   if (error) {
     return <NotFound />;
@@ -116,13 +117,7 @@ function ShowRecipe() {
                 {recipe?.createdBy?.fullName}
               </h3>
 
-              <button
-                className="badge text-mini flex gap-3 justify-evenly items-center my-2"
-                onClick={openModalhandler}
-              >
-                <FaRegStar />
-                {Math.trunc(rating * 100) / 100 ?? '--'}
-              </button>
+              <RatingDash ratings={ratings} />
 
               <div className="grid grid-cols-2 w-full text-primary mt-6">
                 <p>
