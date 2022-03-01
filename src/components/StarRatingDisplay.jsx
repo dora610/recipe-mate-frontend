@@ -7,7 +7,7 @@ function StarRatingDisplay({ avgRating }) {
   ratingArr[ratingRound - 1] = 'star-fill checked';
 
   return (
-    <div className="rating-block">
+    <div className="rating-block-flex">
       {ratingArr.reverse().map((ele, index) => (
         <React.Fragment key={index}>
           <span className={ele}></span>

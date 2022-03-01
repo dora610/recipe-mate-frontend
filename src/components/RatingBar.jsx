@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function RatingBar({ ratings, totalCount }) {
   let ratingsArr = new Array(5).fill(0);
@@ -9,11 +9,11 @@ function RatingBar({ ratings, totalCount }) {
   );
 
   return (
-    <div className="grid grid-cols-[1fr_5fr] grid-rows-5 gap-2 justify-center items-center">
+    <div className="grid grid-cols-[1fr_7fr] grid-rows-5 gap-2 justify-center items-center">
       {ratingsArr.reverse().map((fracCnt, index) => (
         <React.Fragment key={index}>
-          <p className="text-xs leading-3 text-fuchsia-800">{5 - index} star</p>
-          <div className="bg-fuchsia-300 relative w-full h-2 rounded-r-xl">
+          <p className="text-xs leading-3 text-fuchsia-800">{5 - index} ☆</p>
+          <div className="bg-fuchsia-300 relative w-[100%] h-2 rounded-r-xl">
             <div
               className={`bg-fuchsia-600 h-2 w-[${fracCnt}%] absolute rounded-r-xl`}
             ></div>

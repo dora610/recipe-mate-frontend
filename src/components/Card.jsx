@@ -9,7 +9,7 @@ import useAuth from '../hooks/useAuth';
 import { DateTime } from 'luxon';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
-function Card({ recipe, rating }) {
+function Card({ recipe }) {
   const { user } = useAuth();
   const [isSavedRecipe, setIsSavedRecipe] = useState(
     recipe.savedby.includes(user?.userId)
@@ -36,7 +36,7 @@ function Card({ recipe, rating }) {
   };
 
   return (
-    <div className="card relative">
+    <div className="card">
       <div className="card-image">
         <img
           src={recipe?.photo?.square}
@@ -44,7 +44,7 @@ function Card({ recipe, rating }) {
           className="object-cover w-full rounded-t-md"
         />
       </div>
-      <div className="card-body pb-6">
+      <div className="card-body pb-6 relative">
         <h6 className="font-extralight text-xs">
           {DateTime.fromISO(recipe?.updatedAt).toLocaleString(
             DateTime.DATE_FULL
@@ -55,7 +55,7 @@ function Card({ recipe, rating }) {
 
           <div className="badge">
             <FaStar className="fill-yellow-400" />
-            <p className="">{Math.trunc(rating * 100) / 100 ?? '--'}</p>
+            <p className="">{recipe.rating > 0 ? recipe.rating : '--'}</p>
           </div>
         </div>
 
@@ -80,20 +80,20 @@ function Card({ recipe, rating }) {
 
           <p className="badge">{recipe?.course}</p>
         </div>
-      </div>
 
-      {recipe.createdBy._id !== user.userId && (
-        <button
-          className="absolute top-0 right-4 bg-white bg-opacity-50 rounded-sm"
-          onClick={saveRecipeHandler}
-        >
-          {isSavedRecipe ? (
-            <HiBookmark className="fill-purple-800 text-2xl" />
-          ) : (
-            <HiOutlineBookmark className="stroke-purple-700 text-2xl" />
-          )}
-        </button>
-      )}
+        {recipe.createdBy._id !== user?.userId && (
+          <button
+            className="absolute -top-7 right-4"
+            onClick={saveRecipeHandler}
+          >
+            {isSavedRecipe ? (
+              <HiBookmark className="fill-purple-800 text-2xl" />
+            ) : (
+              <HiOutlineBookmark className="stroke-purple-700 text-2xl" />
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

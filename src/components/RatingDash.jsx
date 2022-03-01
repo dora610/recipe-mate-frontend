@@ -1,8 +1,12 @@
 import React from 'react';
-import { FaRegStar } from 'react-icons/fa';
+import { useModal } from '../context/modalContext';
+import Modal from './Modal';
 import RatingBar from './RatingBar';
+import StarRatingForm from './StarRatingForm';
 
 function RatingDash({ ratings }) {
+  const { openModalhandler } = useModal();
+
   let ratingConsolidate = ratings.reduce(
     (prev, next) => {
       let totalRating = prev._id * prev.count + next._id * next.count;
@@ -31,24 +35,27 @@ function RatingDash({ ratings }) {
   };
 
   return (
-    <div className="flex gap-6 my-4">
-      <div>
-        <h1
-          className={`text-6xl font-semibold ${ratingColor(
-            ratingConsolidate._id
-          )}`}
-        >
-          {ratingConsolidate._id}
-        </h1>
-        <div className="flex items-center justify-between text-fuchsia-600 mt-3">
-          <FaRegStar className="text-sm" />
-          <p className="text-sm font-extralight">
-            {ratingConsolidate.count} ratings
-          </p>
+    <div className="bg-fuchsia-50/50 px-6 py-4 rounded-lg hover:shadow-lg">
+      <h2 className="text-2xl font-semibold text-slate-700">User reviews</h2>
+      <div className="flex gap-6 my-4 justify-start">
+        <div>
+          <h1
+            className={`text-6xl font-semibold ${ratingColor(
+              ratingConsolidate._id
+            )}`}
+          >
+            {ratingConsolidate._id}
+          </h1>
+          <h5 className="text-sm font-extralight text-fuchsia-600 text-center mt-4">
+            {ratingConsolidate.count} ratings submitted
+          </h5>
+          {/* <StarRatingDisplay avgRating={ratingConsolidate.count} /> */}
         </div>
-        {/* <StarRatingDisplay avgRating={ratingConsolidate.count} /> */}
+        <RatingBar ratings={ratings} totalCount={ratingConsolidate.count} />
       </div>
-      <RatingBar ratings={ratings} totalCount={ratingConsolidate.count} />
+      <button className="btn-primary px-4 mt-4" onClick={openModalhandler}>
+        Submit review
+      </button>
     </div>
   );
 }
