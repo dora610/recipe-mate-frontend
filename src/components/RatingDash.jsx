@@ -1,8 +1,6 @@
 import React from 'react';
 import { useModal } from '../context/modalContext';
-import Modal from './Modal';
 import RatingBar from './RatingBar';
-import StarRatingForm from './StarRatingForm';
 
 function RatingDash({ ratings }) {
   const { openModalhandler } = useModal();
@@ -35,8 +33,8 @@ function RatingDash({ ratings }) {
   };
 
   return (
-    <div className="bg-fuchsia-50/50 px-6 py-4 rounded-lg hover:shadow-lg">
-      <h2 className="text-2xl font-semibold text-slate-700">User reviews</h2>
+    <div className="bg-fuchsia-50/50 px-6 py-4 rounded-lg hover:shadow-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-fuchsia-600">User reviews</h2>
       <div className="flex gap-6 my-4 justify-start">
         <div>
           <h1
@@ -49,7 +47,6 @@ function RatingDash({ ratings }) {
           <h5 className="text-sm font-extralight text-fuchsia-600 text-center mt-4">
             {ratingConsolidate.count} ratings submitted
           </h5>
-          {/* <StarRatingDisplay avgRating={ratingConsolidate.count} /> */}
         </div>
         <RatingBar ratings={ratings} totalCount={ratingConsolidate.count} />
       </div>

@@ -4,7 +4,7 @@ function StepsComponent({ title, stepsList = [], ...props }) {
   return (
     <div {...props}>
       <h3 className="text-primary-bold">{title}</h3>
-      <div className="mt-4 rounded-lg overflow-y-auto bg-white/50 px-1 py-1">
+      <div className="mt-4 rounded-lg overflow-y-auto bg-white/50 px-1 py-1 shadow-lg">
         {stepsList.map((step, index) => (
           <details
             key={index}

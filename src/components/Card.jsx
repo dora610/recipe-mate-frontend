@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { DateTime } from 'luxon';
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { HiBookmark, HiOutlineBookmark } from 'react-icons/hi';
+import { MdOutlineAccessTime } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API } from '../backend';
 import useAuth from '../hooks/useAuth';
-import { DateTime } from 'luxon';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
 function Card({ recipe }) {
@@ -45,11 +46,6 @@ function Card({ recipe }) {
         />
       </div>
       <div className="card-body pb-6 relative">
-        <h6 className="font-extralight text-xs">
-          {DateTime.fromISO(recipe?.updatedAt).toLocaleString(
-            DateTime.DATE_FULL
-          )}
-        </h6>
         <div className="card-title flex justify-between gap-2 h-10 mb-4 items-center">
           <Link to={`/recipe/${recipe?._id}`}>{recipe?.name}</Link>
 
@@ -57,6 +53,13 @@ function Card({ recipe }) {
             <FaStar className="fill-yellow-400" />
             <p className="">{recipe.rating > 0 ? recipe.rating : '--'}</p>
           </div>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <MdOutlineAccessTime className="fill-slate-500 text-sm" />
+          <h6 className="font-extralight text-xs text-slate-600">
+            {DateTime.fromISO(recipe?.createdAt).toRelative()}
+          </h6>
         </div>
 
         <div className="card-sub-titile text-sm font-normal text-slate-800">

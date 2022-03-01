@@ -19,7 +19,7 @@ body {
     @apply h-8 bg-white bg-opacity-90 backdrop-blur-lg text-slate-700 hover:bg-blue-500 hover:text-white px-5 py-5 rounded-xl flex justify-center items-center shadow-md;
   }
   .btn-primary {
-    @apply bg-fuchsia-400 py-2 text-center text-white rounded-lg font-semibold text-base hover:bg-fuchsia-500 active:bg-fuchsia-600 active:text-black;
+    @apply bg-fuchsia-500 py-2 text-center text-white rounded-lg font-semibold text-base hover:bg-fuchsia-600 active:bg-fuchsia-700 active:text-black;
   }
   .btn-sm {
     @apply btn-primary h-8 py-1;
