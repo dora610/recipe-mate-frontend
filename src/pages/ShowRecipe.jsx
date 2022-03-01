@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FiEdit3 } from 'react-icons/fi';
 import { MdDeleteOutline, MdOutlineAccessTime } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -30,11 +30,15 @@ function ShowRecipe() {
   if (!params.recipeId) {
     return <NotFound />;
   }
-  let [{ data, isLoading, error }] = useFetchData(`recipe/${params.recipeId}`, {
+  let [{ data, isLoading, error }, doFetch] = useFetchData(null, {
     recipe: null,
     ratings: [],
     reviews: [],
   });
+
+  useEffect(() => {
+    doFetch(`${API}/recipe/${params.recipeId}`);
+  }, [params.recipeId]);
 
   let { recipe, ratings, reviews } = data;
 

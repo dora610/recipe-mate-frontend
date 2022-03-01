@@ -39,7 +39,7 @@ function Navbar() {
 
   return (
     <nav
-      className={` grid gap-8 sm-px-10 px-4 shadow-sm text-gray-900 grid-cols-1 grid-flow-col items-center justify-items-stretch bg-white bg-opacity-10 backdrop-blur-2xl ${toggleCollapseClass}`}
+      className={`grid gap-8 sm-px-10 px-4 shadow-sm text-gray-900 grid-cols-1 grid-flow-col items-center justify-items-stretch bg-white bg-opacity-10 backdrop-blur-2xl ${toggleCollapseClass}`}
       onClick={clickHandler}
     >
       <Link
@@ -58,7 +58,7 @@ function Navbar() {
           <NavLink className={getNavLinkClass} to="/recipe/addRecipe">
             Add Recipe
           </NavLink>
-          <NavLink className={getNavLinkClass} to="/savedrecipe">
+          <NavLink className={getNavLinkClass} to="/recipe/saved">
             Saved Recipe
           </NavLink>
           <Link

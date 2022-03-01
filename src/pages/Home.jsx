@@ -5,12 +5,15 @@ import Card from '../components/Card';
 import Loader from '../components/Loader';
 import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { API } from '../backend';
 
 function Home() {
-  let recipeUrl = `recipe/all?page=1`;
-  let [{ data, isLoading, error }, doFetch] = useFetchData(recipeUrl, []);
+  const [{ data, isLoading, error }] = useFetchData(
+    `${API}/recipe/all?page=1`,
+    { recipes: [] }
+  );
 
-  let recipes = data.recipes ?? [];
+  let recipes = data.recipes;
 
   if (error) {
     return <h3 className="error-card">{error}</h3>;

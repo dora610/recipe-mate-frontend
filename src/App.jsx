@@ -19,6 +19,7 @@ import ShowRecipe from './pages/ShowRecipe';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import RecipDataProvider from './providers/RecipDataProvider';
+import SavedRecipes from './pages/SavedRecipes';
 const AddRecipe = lazy(() => import('./pages/AddRecipe'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
@@ -55,7 +56,6 @@ function App() {
                     </RequireAuth>
                   }
                 />
-                {/* Lazy loading with React lazy() & Suspense */}
                 <Route
                   path="addRecipe"
                   element={
@@ -73,6 +73,14 @@ function App() {
                       <React.Suspense fallback={<>Loading...</>}>
                         <AddRecipe />
                       </React.Suspense>
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="saved"
+                  element={
+                    <RequireAuth>
+                      <SavedRecipes />
                     </RequireAuth>
                   }
                 />

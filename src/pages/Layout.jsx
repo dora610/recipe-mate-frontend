@@ -7,7 +7,7 @@ import { ModalProvider } from '../context/modalContext';
 function Layout() {
   return (
     <ModalProvider>
-      <div className="grid grid-rows-[auto_1fr_auto] bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 min-h-screen">
+      <div className="grid grid-rows-[auto_1fr_auto] bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 min-h-screen relative">
         <Navbar />
         <Outlet />
         <Footer />

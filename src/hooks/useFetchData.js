@@ -6,13 +6,11 @@ import {
 } from '../context/actions.types';
 import dataFetchReducer from '../context/dataFetchReducer';
 import useAuth from './useAuth';
-import { API } from '../backend';
-import { toast } from 'react-toastify';
 import axios from 'axios';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
-const useFetchData = (initialUrl = '', initialData = []) => {
-  const [url, setUrl] = useState(`${API}/${initialUrl}`);
+const useFetchData = (initialUrl, initialData) => {
+  const [url, setUrl] = useState(initialUrl);
 
   const initialState = {
     isLoading: false,
@@ -21,14 +19,13 @@ const useFetchData = (initialUrl = '', initialData = []) => {
   };
 
   const [state, dispatch] = useReducer(dataFetchReducer, initialState);
-
   const { user, isUserAuthenticated } = useAuth();
 
   useEffect(() => {
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
     let didCancel = false;
 
-    const getDataFromApi = async (url) => {
+    const getDataFromApi = async () => {
       try {
         dispatch({ type: FETCH_INIT });
 
@@ -40,7 +37,7 @@ const useFetchData = (initialUrl = '', initialData = []) => {
             Authorization: `Bearer ${user['jwt']}`,
             auth: user.userId,
           },
-          cancelToken: source.cancel(),
+          signal: controller.signal,
         });
         if (!didCancel) {
           dispatch({ type: FETCH_SUCCESS, payload: response.data });
@@ -57,21 +54,20 @@ const useFetchData = (initialUrl = '', initialData = []) => {
               type: FETCH_FAILURE,
               payload: handleHttpErrorResp(err),
             });
-            toast.error(handleHttpErrorResp(err));
           }
         }
       }
     };
 
-    if (isUserAuthenticated()) {
-      getDataFromApi(url);
+    if (isUserAuthenticated() && url) {
+      getDataFromApi();
     } else {
       dispatch({ type: FETCH_FAILURE, payload: 'User is not authenticated' });
     }
 
     return () => {
       didCancel = true;
-      source.cancel('Operation canceled by the user.');
+      controller.abort();
     };
   }, [url]);
 
