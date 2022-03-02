@@ -10,10 +10,8 @@ import { API } from '../backend';
 function Home() {
   const [{ data, isLoading, error }] = useFetchData(
     `${API}/recipe/all?page=1`,
-    { recipes: [] }
+    { recipes: [], count: 0 }
   );
-
-  let recipes = data.recipes;
 
   if (error) {
     return <h3 className="error-card">{error}</h3>;
@@ -31,7 +29,7 @@ function Home() {
     <div className="relative">
       <Hero />
       <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">
-        {recipes.map((recipe, index) => (
+        {data.recipes.map((recipe, index) => (
           <Card key={index} recipe={recipe} />
         ))}
       </div>

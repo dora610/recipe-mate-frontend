@@ -5,67 +5,12 @@ import { API } from '../backend';
 import useAuth from '../hooks/useAuth';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 
-const reviewReducer = (state, action) => {
-  switch (action.type) {
-    case 'set_rating':
-      return { ...state, rating: action.payload };
-    case 'set_comments':
-      return { ...state, comments: action.payload };
-    case 'submit_init':
-      return { ...state, isLoading: true, error: null, success: null };
-    case 'submit_success':
-      return { ...state, isLoading: false, success: action.payload };
-    case 'submit_failure':
-      return { ...state, isLoading: false, error: action.payload };
-    case 'preexisting_review':
-      return { ...state, ...action.payload };
-    default:
-      throw new Error('Incorrect action');
-  }
-};
-
-function StarRatingForm({ recipeId }) {
-  const initialState = {
-    rating: 0,
-    comments: '',
-    isLoading: false,
-    error: null,
-    success: null,
-  };
-
-  const [state, dispatch] = useReducer(reviewReducer, initialState);
-  const { user } = useAuth();
-
-  const handleInputChange = (e) => {
-    dispatch({ type: 'set_rating', payload: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch({ type: 'submit_init' });
-      const response = await axios({
-        url: `${API}/review`,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.jwt}`,
-          auth: user.userId,
-        },
-        params: {
-          recipe: recipeId,
-        },
-        data: {
-          rating: state.rating,
-          comments: state.comments,
-        },
-      });
-      dispatch({ type: 'submit_success', payload: response.data.status });
-    } catch (err) {
-      dispatch({ type: 'submit_failure', payload: handleHttpErrorResp(err) });
-    }
-  };
-
+function StarRatingForm({
+  state,
+  handleInputChange,
+  handleCommentChange,
+  handleSubmit,
+}) {
   if (state.isLoading) {
     return (
       <div className="text-warn">
@@ -77,7 +22,7 @@ function StarRatingForm({ recipeId }) {
   if (state.success) {
     return (
       <div className="text-success">
-        <p>{state.success}</p>
+        <p>{state.success.status}</p>
       </div>
     );
   }
@@ -149,9 +94,7 @@ function StarRatingForm({ recipeId }) {
           rows="3"
           className="col-span-3 px-4 py-2 my-3 rounded-lg border-stone-200 bg-fuchsia-50 hover:bg-stone-100/50 hover:border-fuchsia-200 focus:ring-1 focus:ring-fuchsia-500 focus:border-fuchsia-500"
           value={state.comments}
-          onChange={(e) =>
-            dispatch({ type: 'set_comments', payload: e.target.value })
-          }
+          onChange={handleCommentChange}
         ></textarea>
         {(function () {
           let btnLable = state.isLoading ? 'in progress...' : 'Submit';

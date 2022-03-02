@@ -7,7 +7,7 @@ import Loader from './Loader';
 function SideWindow({ authorId, fullName }) {
   const [{ data, isLoading, error }] = useFetchData(
     `${API}/recipe?user=${authorId}`,
-    { recipeList: [] }
+    []
   );
 
   if (isLoading) {
@@ -25,7 +25,7 @@ function SideWindow({ authorId, fullName }) {
       </h4>
 
       <div className=" flex flex-col space-y-1 px-2 py-2">
-        {data.recipeList.map((recipe, index) => (
+        {data.map((recipe, index) => (
           <React.Fragment key={index}>
             <Cardmini recipe={recipe} />
           </React.Fragment>

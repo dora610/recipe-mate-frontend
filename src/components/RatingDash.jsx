@@ -7,12 +7,12 @@ function RatingDash({ ratings }) {
 
   let ratingConsolidate = ratings.reduce(
     (prev, next) => {
-      let totalRating = prev._id * prev.count + next._id * next.count;
+      let totalRating = prev.rating * prev.count + next.rating * next.count;
       let totalCount = prev.count + next.count;
       let avgRating = Math.trunc((totalRating / totalCount) * 100) / 100;
-      return { _id: avgRating, count: totalCount };
+      return { rating: avgRating, count: totalCount };
     },
-    { _id: 0, count: 0 }
+    { rating: 0, count: 0 }
   );
 
   const ratingColor = (point) => {
@@ -39,10 +39,10 @@ function RatingDash({ ratings }) {
         <div>
           <h1
             className={`text-6xl font-semibold ${ratingColor(
-              ratingConsolidate._id
+              ratingConsolidate.rating
             )}`}
           >
-            {ratingConsolidate._id}
+            {ratingConsolidate.rating}
           </h1>
           <h5 className="text-sm font-extralight text-fuchsia-600 text-center mt-4">
             {ratingConsolidate.count} ratings submitted

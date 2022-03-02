@@ -4,8 +4,8 @@ function RatingBar({ ratings, totalCount }) {
   let ratingsArr = new Array(5).fill('0%');
 
   ratings.forEach(
-    ({ _id, count }) =>
-      (ratingsArr[_id - 1] =
+    ({ rating, count }) =>
+      (ratingsArr[rating - 1] =
         Math.round((count / totalCount) * 100).toString() + '%')
   );
 

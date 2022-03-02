@@ -28,7 +28,6 @@ function Navbar() {
     if (e.target.classList.contains('signout')) {
       signOut()
         .then((res) => {
-          toast.success('Signed out');
           setIsCollpased(true);
         })
         .catch((err) => toast.error(err.message));

@@ -17,11 +17,11 @@ import { MODIFY_RECIPE } from '../context/actions.types';
 import recipeContext from '../context/recipeContext';
 import useAuth from '../hooks/useAuth';
 import useFetchData from '../hooks/useFetchData';
+import useReviewForm from '../hooks/useReviewForm';
 import handleHttpErrorResp from '../utils/handleErrorResponse';
 import NotFound from './NotFound';
 
 function ShowRecipe() {
-  const [isDescMinimized, setIsDescMinimized] = useState(true);
   const params = useParams();
   const [dispatch] = useContext(recipeContext);
   const navigate = useNavigate();
@@ -30,28 +30,35 @@ function ShowRecipe() {
   if (!params.recipeId) {
     return <NotFound />;
   }
-  let [{ data, isLoading, error }, doFetch] = useFetchData(null, {
-    recipe: null,
-    ratings: [],
+  const [{ data: recipe, isLoading, error }, fetchRecipe] = useFetchData(
+    null,
+    {}
+  );
+  const [response, fetchReviews] = useFetchData(null, {
+    ratingsCount: [],
     reviews: [],
   });
+  const [state, handleInputChange, handleCommentChange, handleSubmit] =
+    useReviewForm(recipe?._id);
 
   useEffect(() => {
-    doFetch(`${API}/recipe/${params.recipeId}`);
+    fetchRecipe(`${API}/recipe/${params.recipeId}`);
   }, [params.recipeId]);
 
-  let { recipe, ratings, reviews } = data;
+  useEffect(() => {
+    console.log(state.success);
+    fetchReviews(`${API}/review?recipe=${params.recipeId}`);
+    console.log('fetching review');
+  }, [params.recipeId, state.success]);
+
+  console.log(state.success);
 
   if (error) {
     return <NotFound />;
   }
 
-  const showDesc = () => {
-    setIsDescMinimized(!isDescMinimized);
-  };
-
   const updateRecipeHandler = () => {
-    dispatch({ type: MODIFY_RECIPE, payload: data.recipe });
+    dispatch({ type: MODIFY_RECIPE, payload: recipe });
     navigate('/recipe/updateRecipe', { state: { from: 'showRecipe' } });
   };
 
@@ -104,7 +111,7 @@ function ShowRecipe() {
                   )}
                 </h6>
               </div>
-              {user && recipe && user._id === recipe.createdBy._id && (
+              {user && recipe && user._id === recipe?.createdBy?._id && (
                 <div className="flex gap-1 justify-end">
                   <button onClick={updateRecipeHandler} className="btn-mini">
                     <FiEdit3 />
@@ -152,11 +159,11 @@ function ShowRecipe() {
             </div>
 
             <div className="justify-self-center w-96">
-              <RatingDash ratings={ratings} />
+              <RatingDash ratings={response.data.ratingsCount} />
             </div>
 
             <div className="review section">
-              <ReviewSection reviews={reviews} />
+              <ReviewSection reviews={response.data.reviews} />
             </div>
           </div>
         </div>
@@ -165,14 +172,19 @@ function ShowRecipe() {
       {recipe?.createdBy?._id && (
         <div className="mt-8 mx-2">
           <SideWindow
-            authorId={recipe?.createdBy._id}
+            authorId={recipe?.createdBy?._id}
             fullName={recipe?.createdBy?.fullName}
           />
         </div>
       )}
 
       <Modal>
-        <StarRatingForm recipeId={recipe?._id} />
+        <StarRatingForm
+          state={state}
+          handleInputChange={handleInputChange}
+          handleCommentChange={handleCommentChange}
+          handleSubmit={handleSubmit}
+        />
       </Modal>
     </div>
   );

@@ -8,9 +8,9 @@ function ReviewSection({ reviews }) {
         Most recent reviews
       </h4>
       <div className=" flex flex-col space-y-1 px-2 py-2">
-        {reviews.map(({ review, author }, index) => (
+        {reviews.map((review, index) => (
           <React.Fragment key={index}>
-            <CommentBox review={review} author={author} />
+            <CommentBox review={review} />
           </React.Fragment>
         ))}
       </div>
