@@ -46,8 +46,6 @@ function ShowRecipe() {
     return <NotFound />;
   }
 
-  const textEllipsisClass = 'overflow-x-hidden whitespace-nowrap text-ellipsis';
-
   const showDesc = () => {
     setIsDescMinimized(!isDescMinimized);
   };
@@ -136,19 +134,10 @@ function ShowRecipe() {
                 </p>
               </div>
 
-              <div className="w-full leading-3 mt-2">
-                <p
-                  className={`recipe-desc text-primary capitalize ${
-                    isDescMinimized ? textEllipsisClass : ''
-                  }`}
-                >
-                  <span className="text-primary-bold">Description: </span>
-                  {recipe?.description}
-                </p>
-                <button className="text-xs text-stone-600" onClick={showDesc}>
-                  {isDescMinimized ? 'show more' : 'show less'}
-                </button>
-              </div>
+              <p className="recipe-desc text-primary capitalize leading-3 mt-2">
+                <span className="text-primary-bold">Description: </span>
+                {recipe?.description}
+              </p>
 
               <IngrComponent
                 title={'Ingredients:'}

@@ -20,7 +20,7 @@ function SideWindow({ authorId, fullName }) {
 
   return (
     <div className="reviews bg-fuchsia-50/50 rounded-md shadow-lg">
-      <h4 className="bg-fuchsia-300 text-stone-900 py-2 pl-4 text-lg font-semibold rounded-t-md">
+      <h4 className="bg-fuchsia-50/50 text-fuchsia-900 py-2 pl-4 text-lg font-semibold rounded-t-md">
         More from {fullName}
       </h4>
 

@@ -14,10 +14,6 @@ function SavedRecipes() {
 
   let recipes = data.recipes;
 
-  if (error) {
-    return <h3 className="error-card text-center">{error}</h3>;
-  }
-
   if (isLoading) {
     return (
       <div className="relative text-center">
@@ -26,16 +22,22 @@ function SavedRecipes() {
     );
   }
 
-  if (!recipes.length) {
-    return <h3 className="error-card text-center">No saved recipe found</h3>;
-  }
-
   return (
-    <div className="relative">
+    <div>
+      {error && (
+        <div className="flex justify-center">
+          <h3 className="error-card text-center">{error}</h3>
+        </div>
+      )}
+      {recipes.length === 0 && (
+        <div className="flex justify-center">
+          <h3 className="error-card text-center">No saved recipe found</h3>
+        </div>
+      )}
+
       <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">
-        {recipes.map((recipe, index) => (
-          <Card key={index} recipe={recipe} />
-        ))}
+        {recipes.length > 0 &&
+          recipes.map((recipe, index) => <Card key={index} recipe={recipe} />)}
       </div>
     </div>
   );
