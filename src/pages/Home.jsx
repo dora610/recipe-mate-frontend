@@ -28,7 +28,7 @@ function Home() {
   return (
     <div className="relative">
       <Hero />
-      <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">
+      <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 justify-center justify-items-center">
         {data.recipes.map((recipe, index) => (
           <Card key={index} recipe={recipe} />
         ))}

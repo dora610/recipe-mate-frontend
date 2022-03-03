@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 
 function Hero() {
   return (
-    <div className="hero text-center py-6 mx-8">
+    <div className="hero text-center py-6 sm:mx-8 mx-2">
       <h1 className="text-3xl capitalize font-semibold leading-relaxed mb-4 text-slate-800">
         Amazing recipes waiting to be tried out
       </h1>

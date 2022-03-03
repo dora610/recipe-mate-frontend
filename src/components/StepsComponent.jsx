@@ -3,8 +3,8 @@ import React from 'react';
 function StepsComponent({ title, stepsList = [], ...props }) {
   return (
     <div {...props}>
-      <h3 className="text-primary-bold">{title}</h3>
-      <div className="mt-4 rounded-lg overflow-y-auto bg-white/50 px-1 py-1 shadow-lg">
+      <div className="mt-4 rounded-lg px-1 py-1 ">
+        <h3 className="text-primary-bold ml-4">{title}</h3>
         {stepsList.map((step, index) => (
           <details
             key={index}

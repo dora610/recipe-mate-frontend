@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Cardmini({ recipe }) {
   return (
-    <div className="flex gap-1 bg-white text-gray-700 rounded-md hover:shadow-lg">
+    <div className="flex gap-1 bg-white text-gray-700 rounded-md hover:shadow-lg ">
       <img
         src={recipe?.photo.thumbnail}
         alt="thumb-recipe"

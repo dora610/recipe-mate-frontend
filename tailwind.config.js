@@ -4,7 +4,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         'admin-page': 'minmax(8rem, 1fr) minmax(auto, 7fr) minmax(14rem, 2fr)',
-        cards: 'repeat(auto-fill, minmax(250px, 1fr))',
+        cards: 'repeat(auto-fill, minmax(16rem, 1fr))',
         // 'collection-table': '50px repeat(6, minmax(75px, auto))',
       },
       gridTemplateRows: {

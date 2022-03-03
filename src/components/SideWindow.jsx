@@ -24,7 +24,7 @@ function SideWindow({ authorId, fullName }) {
         More from {fullName}
       </h4>
 
-      <div className=" flex flex-col space-y-1 px-2 py-2">
+      <div className="grid grid-cols-[repeat(auto-fit,_minmax(15rem,_1fr))] gap-2 px-2 py-2">
         {data.map((recipe, index) => (
           <React.Fragment key={index}>
             <Cardmini recipe={recipe} />

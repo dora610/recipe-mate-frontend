@@ -13,7 +13,9 @@ function RatingBar({ ratings, totalCount }) {
     <div className="grid grid-cols-[1fr_7fr] grid-rows-5 gap-2 justify-center items-center">
       {ratingsArr.reverse().map((fracCnt, index) => (
         <React.Fragment key={index}>
-          <p className="text-xs leading-3 text-fuchsia-800">{5 - index} ☆</p>
+          <p className="text-xs leading-3 text-fuchsia-800 w-6">
+            {5 - index} ☆
+          </p>
           <div className="bg-fuchsia-300 relative w-full h-2 rounded-r-xl">
             <div
               className={`bg-fuchsia-600 h-2 rounded-r-xl`}

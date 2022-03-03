@@ -7,7 +7,7 @@ function ReviewSection({ reviews }) {
       <h4 className="text-fuchsia-700 py-2 pl-4 text-xl font-semibold rounded-t-lg">
         Most recent reviews
       </h4>
-      <div className=" flex flex-col space-y-1 px-2 py-2">
+      <div className=" flex flex-col gap-1 px-2 py-2">
         {reviews.map((review, index) => (
           <React.Fragment key={index}>
             <CommentBox review={review} />

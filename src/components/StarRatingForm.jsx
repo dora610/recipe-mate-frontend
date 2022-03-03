@@ -7,9 +7,7 @@ import handleHttpErrorResp from '../utils/handleErrorResponse';
 
 function StarRatingForm({
   state,
-  handleInputChange,
-  handleCommentChange,
-  handleSubmit,
+  formHandlers: { handleInputChange, handleCommentChange, handleSubmit },
 }) {
   if (state.isLoading) {
     return (

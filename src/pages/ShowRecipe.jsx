@@ -34,24 +34,12 @@ function ShowRecipe() {
     null,
     {}
   );
-  const [response, fetchReviews] = useFetchData(null, {
-    ratingsCount: [],
-    reviews: [],
-  });
-  const [state, handleInputChange, handleCommentChange, handleSubmit] =
-    useReviewForm(recipe?._id);
+  const [reviewState, formHandlers, setRecipeId] = useReviewForm();
 
   useEffect(() => {
     fetchRecipe(`${API}/recipe/${params.recipeId}`);
+    setRecipeId(params.recipeId);
   }, [params.recipeId]);
-
-  useEffect(() => {
-    console.log(state.success);
-    fetchReviews(`${API}/review?recipe=${params.recipeId}`);
-    console.log('fetching review');
-  }, [params.recipeId, state.success]);
-
-  console.log(state.success);
 
   if (error) {
     return <NotFound />;
@@ -82,109 +70,107 @@ function ShowRecipe() {
   };
 
   return (
-    <div className="bg-white bg-opacity-80 backdrop-blur-2xl grid grid-cols-[4fr_1fr]">
+    <div className="bg-white bg-opacity-80 backdrop-blur-2xl py-8 px-3">
       {isLoading ? (
         <h3 className="text-warn">Loading...</h3>
       ) : error ? (
         <h3 className="error-card">{error}</h3>
       ) : (
-        <div className="content py-8 px-4">
-          <div className="sub-content grid grid-cols-[2fr_3fr] grid-rows-[1fr_auto] gap-4 text-slate-800 ">
-            <div className="recipe-image flex justify-center">
-              <img
-                src={recipe?.photo?.square || recipe?.photo?.secure_url}
-                alt="recipe img"
-                className=" object-cover w-11/12 min-w-[24rem] h-fit rounded-md shadow-lg"
-              />
+        <div className="sm:grid flex flex-col lg:grid-cols-[2fr_3fr_1fr] gap-4 sm:grid-cols-[2fr_3fr] sm:grid-rows-[1fr_auto] text-slate-800">
+          <div className="recipe-image flex justify-center p-2">
+            <img
+              src={recipe?.photo?.square || recipe?.photo?.secure_url}
+              alt="recipe img"
+              className="object-cover h-fit rounded-md shadow-lg"
+            />
+          </div>
+
+          <div className="flex flex-col gap-3 justify-start items-start p-2">
+            <h1 className="text-heading">{recipe?.name}</h1>
+            <h3 className="text-sub-heading text-slate-600">
+              {recipe?.createdBy?.fullName}
+            </h3>
+            <div className="flex items-center gap-2">
+              <MdOutlineAccessTime />
+              <h6 className="font-extralight text-sm">
+                {DateTime.fromISO(recipe?.createdAt).toLocaleString(
+                  DateTime.DATETIME_MED
+                )}
+              </h6>
+            </div>
+            {/* {user && recipe && user._id === recipe?.createdBy?._id && (
+              <div className="flex gap-1 justify-end">
+                <button onClick={updateRecipeHandler} className="btn-mini">
+                  <FiEdit3 />
+                </button>
+                <button onClick={deleteRecipeHandler} className="btn-mini">
+                  <MdDeleteOutline />
+                </button>
+              </div>
+            )} */}
+
+            <div className="grid grid-cols-2 w-full text-primary">
+              <p>
+                <span className="text-primary-bold">Prep time: </span>
+                {recipe?.preparationTime} mins
+              </p>
+              <p>
+                <span className="text-primary-bold">Cook time: </span>
+                {recipe?.cookTime} mins
+              </p>
+              <p>
+                <span className="text-primary-bold">Type: </span>
+                {recipe?.type}
+              </p>
+              <p>
+                <span className="text-primary-bold">Course: </span>
+                {recipe?.course}
+              </p>
             </div>
 
-            <div className="flex flex-col gap-3 justify-start items-start">
-              <h1 className="text-heading">{recipe?.name}</h1>
-              <h3 className="text-sub-heading text-slate-600">
-                {recipe?.createdBy?.fullName}
-              </h3>
-              <div className="flex items-center gap-2">
-                <MdOutlineAccessTime />
-                <h6 className="font-extralight text-sm">
-                  {DateTime.fromISO(recipe?.createdAt).toLocaleString(
-                    DateTime.DATETIME_MED
-                  )}
-                </h6>
-              </div>
-              {user && recipe && user._id === recipe?.createdBy?._id && (
-                <div className="flex gap-1 justify-end">
-                  <button onClick={updateRecipeHandler} className="btn-mini">
-                    <FiEdit3 />
-                  </button>
-                  <button onClick={deleteRecipeHandler} className="btn-mini">
-                    <MdDeleteOutline />
-                  </button>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 w-full text-primary">
-                <p>
-                  <span className="text-primary-bold">Prep time: </span>
-                  {recipe?.preparationTime} mins
-                </p>
-                <p>
-                  <span className="text-primary-bold">Cook time: </span>
-                  {recipe?.cookTime} mins
-                </p>
-                <p>
-                  <span className="text-primary-bold">Type: </span>
-                  {recipe?.type}
-                </p>
-                <p>
-                  <span className="text-primary-bold">Course: </span>
-                  {recipe?.course}
-                </p>
-              </div>
-
+            {
               <p className="recipe-desc text-primary capitalize leading-3 mt-2">
                 <span className="text-primary-bold">Description: </span>
                 {recipe?.description}
               </p>
+            }
 
-              <IngrComponent
-                title={'Ingredients:'}
-                contentList={recipe?.ingredients}
-              />
-
-              <StepsComponent
-                title={'Steps:'}
-                stepsList={recipe?.steps}
-                className="w-full"
-              />
-            </div>
-
-            <div className="justify-self-center w-96">
-              <RatingDash ratings={response.data.ratingsCount} />
-            </div>
-
-            <div className="review section">
-              <ReviewSection reviews={response.data.reviews} />
-            </div>
+            <IngrComponent
+              title={'Ingredients:'}
+              contentList={recipe?.ingredients}
+            />
           </div>
+
+          <div className="col-span-2 justify-items-start">
+            <StepsComponent
+              title={'Steps:'}
+              stepsList={recipe?.steps}
+              className="w-full"
+            />
+          </div>
+
+          {recipe?.createdBy?._id && (
+            <div className="mt-8 col-span-2 lg:row-start-1 lg:col-start-3 lg:col-end-3 lg:row-span-2 ">
+              <SideWindow
+                authorId={recipe?.createdBy?._id}
+                fullName={recipe?.createdBy?.fullName}
+              />
+            </div>
+          )}
         </div>
       )}
 
-      {recipe?.createdBy?._id && (
-        <div className="mt-8 mx-2">
-          <SideWindow
-            authorId={recipe?.createdBy?._id}
-            fullName={recipe?.createdBy?.fullName}
-          />
+      <div className="mt-10 flex gap-6 lg:flex-row flex-col items-center lg:items-start">
+        <div className="w-max-[24rem] lg:w-[35rem]">
+          <RatingDash ratings={reviewState.ratingsCount} />
         </div>
-      )}
+        <div className="review section w-full">
+          <ReviewSection reviews={reviewState.reviews} />
+        </div>
+      </div>
 
       <Modal>
-        <StarRatingForm
-          state={state}
-          handleInputChange={handleInputChange}
-          handleCommentChange={handleCommentChange}
-          handleSubmit={handleSubmit}
-        />
+        <StarRatingForm state={reviewState} formHandlers={formHandlers} />
       </Modal>
     </div>
   );

@@ -16,8 +16,13 @@ const reviewReducer = (state, action) => {
       };
     case 'submit_failure':
       return { ...state, isLoading: false, error: action.payload };
-    case 'preexisting_review':
-      return { ...state, ...action.payload };
+    case 'fetch_success':
+      return {
+        ...state,
+        isLoading: false,
+        ratingsCount: action.payload.ratingsCount,
+        reviews: action.payload.reviews,
+      };
     default:
       throw new Error('Incorrect action');
   }
