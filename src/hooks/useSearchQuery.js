@@ -21,7 +21,6 @@ function useSearchQuery() {
     const fetchQuery = async (param) => {
       try {
         setIsLoading(true);
-        console.log('fetch started ', param);
         const response = await axios.get(`${API}/search/recipe?name=${param}`, {
           headers: {
             Authorization: `Bearer ${user.jwt}`,
@@ -32,11 +31,9 @@ function useSearchQuery() {
         });
         setSearchResults(response.data);
         setIsLoading(false);
-        console.log('fetch success ', param);
       } catch (err) {
         console.error(handleHttpErrorResp(err));
         // setIsLoading(false); // once the fetch aborted, it's disabling loading of new fetch loading
-        console.log('fetch err ', param);
       }
     };
 
