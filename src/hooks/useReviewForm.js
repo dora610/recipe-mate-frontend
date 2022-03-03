@@ -26,7 +26,6 @@ const useReviewForm = () => {
 
   useEffect(() => {
     if (recipeId) {
-      console.log(recipeId);
       fetchReviews();
     }
   }, [recipeId]);
