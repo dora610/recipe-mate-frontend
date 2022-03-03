@@ -36,15 +36,15 @@ function RatingDash({ ratings }) {
     <div className="bg-fuchsia-50/50 px-6 py-4 rounded-lg hover:shadow-lg shadow-md">
       <h2 className="text-2xl font-semibold text-fuchsia-600">User reviews</h2>
       <div className="flex gap-6 my-4 justify-start">
-        <div>
+        <div className="text-center">
           <h1
-            className={`text-6xl font-semibold ${ratingColor(
+            className={`text-6xl  font-semibold ${ratingColor(
               ratingConsolidate.rating
             )}`}
           >
             {ratingConsolidate.rating}
           </h1>
-          <h5 className="text:xs sm:text-sm font-extralight text-fuchsia-600 text-center mt-4">
+          <h5 className="text:xs sm:text-sm font-extralight text-fuchsia-600 mt-4">
             {ratingConsolidate.count} ratings submitted
           </h5>
         </div>
