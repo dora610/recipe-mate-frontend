@@ -17,6 +17,7 @@ function Card({ recipe }) {
   );
 
   const saveRecipeHandler = () => {
+    setIsSavedRecipe(!isSavedRecipe);
     axios
       .put(
         `${API}/recipe/savedrecipes/${recipe._id}`,
@@ -30,7 +31,6 @@ function Card({ recipe }) {
         }
       )
       .then((res) => {
-        setIsSavedRecipe(!isSavedRecipe);
         toast.success(res.data.status);
       })
       .catch((err) => toast.error(handleHttpErrorResp(err)));
