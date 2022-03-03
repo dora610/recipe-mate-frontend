@@ -78,7 +78,6 @@ function AddRecipe() {
     if (ingrArr.length < 1) return 'Ingredient must be added';
     if (steps.length < 1) return 'Steps are missing';
     for (const [key, val] of formData.entries()) {
-      console.log(key, val);
       if (key !== 'photo') {
         if ((Array.isArray(val) && val.length() < 1) || !val) {
           return `${key} is missing`;
@@ -196,7 +195,6 @@ function AddRecipe() {
     e.stopPropagation();
     const step = stepsRef.current.value;
     if (step) {
-      console.log(step);
       setSteps([...steps, step]);
       stepsRef.current.value = '';
     }

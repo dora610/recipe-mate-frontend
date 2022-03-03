@@ -56,7 +56,6 @@ function SignUp() {
     setIsLoading(true);
     signUp(userData)
       .then((status) => {
-        console.log(status);
         navigate(from, { replace: true });
       })
       .catch((err) => {

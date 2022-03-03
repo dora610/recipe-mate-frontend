@@ -38,7 +38,7 @@ function RatingDash({ ratings }) {
       <div className="flex gap-6 my-4 justify-start">
         <div>
           <h1
-            className={`text-4xl sm:text-6xl font-semibold ${ratingColor(
+            className={`text-6xl font-semibold ${ratingColor(
               ratingConsolidate.rating
             )}`}
           >
