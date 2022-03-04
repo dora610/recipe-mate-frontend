@@ -19,7 +19,7 @@ function Home() {
 
   if (isLoading) {
     return (
-      <div className="relative text-center">
+      <div className="relative text-center flex justify-center">
         <Loader isLoading={isLoading} />
       </div>
     );

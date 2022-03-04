@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import React, { useContext, useEffect, useState } from 'react';
-import { FiEdit3 } from 'react-icons/fi';
-import { MdDeleteOutline, MdOutlineAccessTime } from 'react-icons/md';
+import React, { useContext, useEffect } from 'react';
+import { MdOutlineAccessTime } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API } from '../backend';
 import IngrComponent from '../components/IngrComponent';
+import Loader from '../components/Loader';
 import Modal from '../components/Modal';
 import RatingDash from '../components/RatingDash';
 import ReviewSection from '../components/ReviewSection';
@@ -72,7 +72,9 @@ function ShowRecipe() {
   return (
     <div className="bg-white bg-opacity-80 backdrop-blur-2xl py-8 px-3">
       {isLoading ? (
-        <h3 className="text-warn">Loading...</h3>
+        <div className="relative text-center flex justify-center">
+          <Loader isLoading={isLoading} />
+        </div>
       ) : error ? (
         <h3 className="error-card">{error}</h3>
       ) : (
@@ -160,14 +162,20 @@ function ShowRecipe() {
         </div>
       )}
 
-      <div className="mt-10 flex gap-6 lg:flex-row flex-col items-center lg:items-start">
-        <div className="w-max-[24rem] lg:w-[35rem]">
-          <RatingDash ratings={reviewState.ratingsCount} />
+      {reviewState.isLoading ? (
+        <div className="relative text-center flex justify-center">
+          <Loader isLoading={isLoading} />
         </div>
-        <div className="review section w-full">
-          <ReviewSection reviews={reviewState.reviews} />
+      ) : (
+        <div className="mt-10 flex gap-6 lg:flex-row flex-col items-center lg:items-start">
+          <div className="w-max-[24rem] lg:w-[35rem]">
+            <RatingDash ratings={reviewState.ratingsCount} />
+          </div>
+          <div className="review section w-full">
+            <ReviewSection reviews={reviewState.reviews} />
+          </div>
         </div>
-      </div>
+      )}
 
       <Modal>
         <StarRatingForm state={reviewState} formHandlers={formHandlers} />

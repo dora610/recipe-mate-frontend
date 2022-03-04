@@ -49,20 +49,20 @@ function Card({ recipe }) {
         <div className="card-title flex justify-between gap-2 h-10 mb-4 items-center">
           <Link to={`/recipe/${recipe?._id}`}>{recipe?.name}</Link>
 
-          <div className="badge">
-            <FaStar className="fill-yellow-400" />
+          <div className="badge-outline">
+            <FaStar className="fill-yellow-700" />
             <p className="">{recipe.rating > 0 ? recipe.rating : '--'}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-1">
-          <MdOutlineAccessTime className="fill-slate-500 text-sm" />
-          <h6 className="font-extralight text-xs text-slate-600">
+          <MdOutlineAccessTime className="fill-slate-600 text-sm" />
+          <h6 className="font-extralight text-xs text-slate-700">
             {DateTime.fromISO(recipe?.createdAt).toRelative()}
           </h6>
         </div>
 
-        <div className="card-sub-titile text-sm font-normal text-slate-800">
+        <div className="card-sub-titile text-base font-normal text-slate-800">
           {recipe?.createdBy?.fullName}
         </div>
 

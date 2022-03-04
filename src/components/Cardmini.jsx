@@ -13,9 +13,7 @@ function Cardmini({ recipe }) {
       />
       <div className="card-body-mini text-xs font-extralight py-1 ">
         <div>
-          <h3 className="text-sm font-normal">
-            <Link to={`/recipe/${recipe?._id}`}>{recipe?.name}</Link>
-          </h3>
+          <h3 className="text-sm font-normal">{recipe?.name}</h3>
           <p className="flex items-center gap-1">
             <MdOutlineAccessTime className="font-extralight " />
             {DateTime.fromISO(recipe?.createdAt).toRelative()}
