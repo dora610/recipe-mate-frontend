@@ -49,11 +49,11 @@ function ForgotPassword() {
   }
 
   return (
-    <div className="bg-primary grid justify-center items-center h-96">
-      <div className="form-card text-slate-500">
+    <div className="grid justify-center items-center">
+      <div className="form-card text-slate-500 bg-opacity-80 backdrop-blur-2xl">
         <h2 className="form-card-title">Forgot Password</h2>
         <form
-          className="form-normal border-t-2 border-fuchsia-200"
+          className="form-normal border-t-2 border-fuchsia-400"
           onSubmit={submithandler}
         >
           <label htmlFor="email" className="text-slate-600">

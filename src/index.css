@@ -61,7 +61,7 @@ body {
     @apply text-4xl font-semibold mb-6 text-fuchsia-700 text-center;
   }
   .form-normal {
-    @apply flex flex-col py-4 text-base font-normal space-y-4 text-slate-700 accent-fuchsia-500;
+    @apply flex flex-col py-4 text-base font-normal space-y-4 text-slate-900 accent-fuchsia-500;
   }
   .form-group-inline {
     @apply grid grid-cols-[4fr_1fr] gap-4 items-center;

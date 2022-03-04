@@ -43,8 +43,8 @@ function SignIn() {
   };
 
   return (
-    <div className="bg-primary py-6">
-      <div className="form-card">
+    <div className="py-6 grid place-content-center">
+      <div className="form-card bg-opacity-80 backdrop-blur-2xl">
         <h2 className="form-card-title">Sign In</h2>
         {error && <h4 className="text-danger">{error}</h4>}
 
@@ -56,7 +56,7 @@ function SignIn() {
 
         <form
           onSubmit={handleSubmit}
-          className="form-normal border-t-2 border-fuchsia-200"
+          className="form-normal border-t-2 border-fuchsia-400"
         >
           <div className="flex flex-col">
             <label htmlFor="email">Email</label>
@@ -66,7 +66,6 @@ function SignIn() {
               id="email"
               ref={emailRef}
               className="input-normal"
-              placeholder="example@domain.com"
               defaultValue={emailRef.current}
             />
           </div>
@@ -85,7 +84,7 @@ function SignIn() {
             Sign In
           </button>
         </form>
-        <div className="font-light text-base flex justify-between">
+        <div className="font-light text-base grid grid-cols-2 justify-items-center gap-2">
           <div>
             Don't have an account?{' '}
             <Link to="/signup" className="text-blue-700 font-normal">

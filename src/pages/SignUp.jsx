@@ -66,8 +66,8 @@ function SignUp() {
   };
 
   return (
-    <div className="bg-primary py-6">
-      <div className="form-card">
+    <div className="py-6">
+      <div className="form-card bg-opacity-80 backdrop-blur-2xl">
         <h2 className="form-card-title">Sign Up</h2>
         {error && (
           <div className="text-danger">
@@ -81,7 +81,7 @@ function SignUp() {
         )}
         <form
           onSubmit={handleSubmit}
-          className="form-normal border-t-2 border-fuchsia-200"
+          className="form-normal border-t-2 border-fuchsia-400"
         >
           <div className="flex flex-col">
             <label htmlFor="first-name">First Name</label>
@@ -91,7 +91,6 @@ function SignUp() {
               id="first-name"
               ref={firstNameRef}
               className="input-normal"
-              placeholder="John"
               required
             />
           </div>
@@ -113,7 +112,6 @@ function SignUp() {
               id="last-name"
               ref={lastNameRef}
               className="input-normal"
-              placeholder="Doe"
               required
             />
           </div>
@@ -125,7 +123,6 @@ function SignUp() {
               id="email"
               ref={emailRef}
               className="input-normal"
-              placeholder="example@domain.com"
               required
             />
           </div>
