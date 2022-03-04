@@ -49,7 +49,7 @@ body {
     @apply bg-white px-1 py-1 flex justify-center items-center;
   }
   .error-card {
-    @apply text-danger px-4 py-4 w-96  bg-red-100/90 backdrop-blur-xl shadow-lg rounded-md;
+    @apply text-danger px-4 py-4 w-80  bg-red-100/90 backdrop-blur-xl shadow-lg rounded-md;
   }
   .form-card {
     @apply mx-auto w-11/12 max-w-md drop-shadow-lg shadow-fuchsia-300/25 bg-white rounded-lg px-6 py-6;
@@ -103,10 +103,10 @@ body {
     @apply text-lg font-semibold;
   }
   .text-primary {
-    @apply text-sm font-medium;
+    @apply sm:text-sm text-base font-medium;
   }
   .text-primary-bold {
-    @apply text-sm font-semibold capitalize;
+    @apply sm:text-sm text-base font-semibold capitalize;
   }
   .text-mini {
     @apply text-sm font-extralight;

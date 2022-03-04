@@ -5,29 +5,29 @@ import { Link } from 'react-router-dom';
 
 function Cardmini({ recipe }) {
   return (
-    <div className="flex gap-1 bg-white text-gray-700 rounded-md hover:shadow-lg ">
+    <div className="flex gap-2 bg-white text-gray-700 rounded-md hover:shadow-lg ">
       <img
         src={recipe?.photo.thumbnail}
         alt="thumb-recipe"
         className="object-cover w-20 h-fit rounded-l-md"
       />
-      <div className="card-body-mini text-xs font-extralight py-1 ">
+      <div className="card-body-mini text-mini font-extralight py-1">
         <div>
-          <h3 className="text-sm font-normal">{recipe?.name}</h3>
-          <p className="flex items-center gap-1">
+          <h3 className="text-lg font-light">{recipe?.name}</h3>
+          <p className="flex items-center gap-1 text-xs font-thin">
             <MdOutlineAccessTime className="font-extralight " />
             {DateTime.fromISO(recipe?.createdAt).toRelative()}
           </p>
         </div>
-        <div className="flex gap-5 mt-3">
+        <div className="flex mt-1 divide-x-2 divide-fuchsia-400">
           <p
-            className={`border-l-4 pl-2 ${
-              recipe?.type === 'veg' ? 'border-green-700' : 'border-fuchsia-500'
+            className={`pr-1 ${
+              recipe?.type === 'veg' ? 'text-green-700' : 'text-fuchsia-500'
             }`}
           >
             {recipe?.type}
           </p>
-          <p className="border-l-4 pl-2 border-fuchsia-500">{recipe?.course}</p>
+          <p className="text-fuchsia-500 pl-1">{recipe?.course}</p>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ function SavedRecipes() {
 
   if (isLoading) {
     return (
-      <div className="relative text-center">
+      <div className="relative text-center flex justify-center">
         <Loader isLoading={isLoading} />
       </div>
     );
@@ -24,15 +24,16 @@ function SavedRecipes() {
 
   return (
     <div>
-      {error && (
+      {error ? (
         <div className="flex justify-center">
           <h3 className="error-card text-center">{error}</h3>
         </div>
-      )}
-      {recipes.length === 0 && (
-        <div className="flex justify-center">
-          <h3 className="error-card text-center">No saved recipe found</h3>
-        </div>
+      ) : (
+        recipes.length === 0 && (
+          <div className="flex justify-center">
+            <h3 className="error-card text-center">No saved recipe found</h3>
+          </div>
+        )
       )}
 
       <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">

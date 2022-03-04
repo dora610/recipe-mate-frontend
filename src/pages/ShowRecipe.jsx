@@ -131,7 +131,7 @@ function ShowRecipe() {
             </div>
 
             {
-              <p className="recipe-desc text-primary capitalize leading-3 mt-2">
+              <p className="recipe-desc text-primary capitalize leading-7 mt-2">
                 <span className="text-primary-bold">Description: </span>
                 {recipe?.description}
               </p>
