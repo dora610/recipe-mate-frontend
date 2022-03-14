@@ -37,7 +37,7 @@ function Card({ recipe }) {
   };
 
   return (
-    <div className="card w-64">
+    <div className="card sm:w-64">
       <div className="card-image">
         <img
           src={recipe?.photo?.square}

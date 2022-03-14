@@ -36,12 +36,14 @@ function Home() {
     <div className="relative">
       <Hero />
 
-      <div className="flex items-center sm:mx-6 gap-2">
-        <HiTrendingUp className="text-xl fill-fuchsia-200" />
-        <h3 className="text-fuchsia-200 text-xl font-semibold">Trending: </h3>
+      <div className="flex items-center gap-2 mb-2 ml-4">
+        <HiTrendingUp className="text-2xl fill-fuchsia-200" />
+        <h3 className="text-fuchsia-200 text-xl font-semibold underline">
+          Trending
+        </h3>
       </div>
 
-      <div className="p-2 mb-4 sm:mx-6 flex gap-3 flex-wrap justify-center">
+      <div className="p-2 mb-4 mx-1 flex gap-3 flex-wrap justify-center">
         {data.recipes.map((recipe, index) => (
           <Card key={index} recipe={recipe} />
         ))}

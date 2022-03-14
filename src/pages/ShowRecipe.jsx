@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { DateTime } from 'luxon';
 import React, { useContext, useEffect } from 'react';
-import { MdOutlineAccessTime } from 'react-icons/md';
+import { MdDeleteOutline, MdOutlineAccessTime } from 'react-icons/md';
+import { FiEdit3 } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API } from '../backend';
@@ -88,7 +89,21 @@ function ShowRecipe() {
           </div>
 
           <div className="flex flex-col gap-3 justify-start items-start p-2">
-            <h1 className="text-heading">{recipe?.name}</h1>
+            <div className="flex justify-between items-center w-full">
+              <h1 className="text-heading">{recipe?.name}</h1>
+              <span>
+                {user && recipe && user.userId === recipe?.createdBy?._id && (
+                  <div className="flex gap-1 justify-end">
+                    <button onClick={updateRecipeHandler} className="btn-mini">
+                      <FiEdit3 />
+                    </button>
+                    <button onClick={deleteRecipeHandler} className="btn-mini">
+                      <MdDeleteOutline />
+                    </button>
+                  </div>
+                )}
+              </span>
+            </div>
             <h3 className="text-sub-heading text-slate-600">
               {recipe?.createdBy?.fullName}
             </h3>
@@ -100,16 +115,6 @@ function ShowRecipe() {
                 )}
               </h6>
             </div>
-            {/* {user && recipe && user._id === recipe?.createdBy?._id && (
-              <div className="flex gap-1 justify-end">
-                <button onClick={updateRecipeHandler} className="btn-mini">
-                  <FiEdit3 />
-                </button>
-                <button onClick={deleteRecipeHandler} className="btn-mini">
-                  <MdDeleteOutline />
-                </button>
-              </div>
-            )} */}
 
             <div className="grid grid-cols-2 w-full text-primary">
               <p>
