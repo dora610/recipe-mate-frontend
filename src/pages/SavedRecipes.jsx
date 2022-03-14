@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 import { API } from '../backend';
 import Card from '../components/Card';
 import Loader from '../components/Loader';
+import Pagination from '../components/Pagination';
 import useFetchData from '../hooks/useFetchData';
+import usePagination from '../hooks/usePagination';
 
 function SavedRecipes() {
-  const [{ data, isLoading, error }] = useFetchData(
+  const [{ data, isLoading, error }, setUrl] = useFetchData(
     `${API}/recipe/saved/all?page=1`,
     { recipes: [] }
+  );
+
+  const [currPage, pageCount, prevPage, nextpage] = usePagination(
+    data.count,
+    setUrl
   );
 
   let recipes = data.recipes;
@@ -40,6 +47,13 @@ function SavedRecipes() {
         {recipes.length > 0 &&
           recipes.map((recipe, index) => <Card key={index} recipe={recipe} />)}
       </div>
+
+      <Pagination
+        currPage={currPage}
+        pageCount={pageCount}
+        prevPage={prevPage}
+        nextpage={nextpage}
+      />
     </div>
   );
 }

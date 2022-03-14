@@ -143,7 +143,7 @@ function ShowRecipe() {
             />
           </div>
 
-          <div className="col-span-2 justify-items-start">
+          <div className="col-start-2 justify-items-start">
             <StepsComponent
               title={'Steps:'}
               stepsList={recipe?.steps}
@@ -152,7 +152,7 @@ function ShowRecipe() {
           </div>
 
           {recipe?.createdBy?._id && (
-            <div className="mt-8 col-span-2 lg:row-start-1 lg:col-start-3 lg:col-end-3 lg:row-span-2 ">
+            <div className="mt-8 md:mx-1 col-span-2 lg:row-start-1 lg:col-start-3 lg:col-end-3 lg:row-span-2 ">
               <SideWindow
                 authorId={recipe?.createdBy?._id}
                 fullName={recipe?.createdBy?.fullName}
@@ -167,7 +167,7 @@ function ShowRecipe() {
           <Loader isLoading={isLoading} />
         </div>
       ) : (
-        <div className="mt-10 flex gap-6 lg:flex-row flex-col items-center lg:items-start">
+        <div className="mt-10 flex gap-6 lg:flex-row flex-col justify-center items-center lg:items-start lg:mx-20">
           <div className="w-max-[24rem] lg:w-[35rem]">
             <RatingDash ratings={reviewState.ratingsCount} />
           </div>
