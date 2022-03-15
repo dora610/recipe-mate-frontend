@@ -74,7 +74,6 @@ function AddRecipe() {
   };
 
   const validFormInputs = (formData) => {
-    console.groupCollapsed('form data');
     if (ingrArr.length < 1) return 'Ingredient must be added';
     if (steps.length < 1) return 'Steps are missing';
     for (const [key, val] of formData.entries()) {
@@ -92,8 +91,6 @@ function AddRecipe() {
     if (formData.get('cookTime') < 1) return 'Enter valid cooking time';
     if (!formData.get('ingredients')) return 'Ingredients not added';
     if (!formData.get('steps')) return 'Steps are required';
-
-    console.groupEnd('form data');
   };
 
   const addRecipeHandler = (formData) => {

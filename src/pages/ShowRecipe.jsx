@@ -24,7 +24,7 @@ import NotFound from './NotFound';
 
 function ShowRecipe() {
   const params = useParams();
-  const [dispatch] = useContext(recipeContext);
+  const [state, dispatch] = useContext(recipeContext);
   const navigate = useNavigate();
   let { user } = useAuth();
 
