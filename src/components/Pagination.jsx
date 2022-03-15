@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
-function Pagination({ currPage, pageCount, prevPage, nextpage }) {
+function Pagination({ currPage, pageCount, prevPage, nextpage, changePage }) {
   const pages = () => {
     let buttonRow = [];
     let start = 1;
@@ -12,6 +12,10 @@ function Pagination({ currPage, pageCount, prevPage, nextpage }) {
       buttonRow.push(
         <button
           key={i}
+          onClick={(e) => {
+            e.stopPropagation();
+            changePage(i);
+          }}
           className={`btn-mini backdrop-blur-2xl text-slate-800 ${
             i === currPage ? 'selected-page' : 'page-index'
           }`}

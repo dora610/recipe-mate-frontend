@@ -15,7 +15,7 @@ function Home() {
     `${API}/recipe/all?page=1`,
     { recipes: [], count: 0 }
   );
-  const [currPage, pageCount, prevPage, nextpage] = usePagination(
+  const [currPage, pageCount, prevPage, nextpage, changePage] = usePagination(
     data.count,
     setUrl
   );
@@ -54,6 +54,7 @@ function Home() {
         pageCount={pageCount}
         prevPage={prevPage}
         nextpage={nextpage}
+        changePage={changePage}
       />
 
       {/* TODO: button alignment should be on right */}
