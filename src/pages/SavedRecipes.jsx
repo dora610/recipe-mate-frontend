@@ -16,14 +16,15 @@ function SavedRecipes() {
 
   const [currPage, pageCount, prevPage, nextpage] = usePagination(
     data.count,
-    setUrl
+    setUrl,
+    `${API}/recipe/saved/all`
   );
 
   let recipes = data.recipes;
 
   if (isLoading) {
     return (
-      <div className="relative text-center flex justify-center">
+      <div className='relative text-center flex justify-center'>
         <Loader isLoading={isLoading} />
       </div>
     );
@@ -32,18 +33,18 @@ function SavedRecipes() {
   return (
     <div>
       {error ? (
-        <div className="flex justify-center">
-          <h3 className="error-card text-center">{error}</h3>
+        <div className='flex justify-center'>
+          <h3 className='error-card text-center'>{error}</h3>
         </div>
       ) : (
         recipes.length === 0 && (
-          <div className="flex justify-center">
-            <h3 className="error-card text-center">No saved recipe found</h3>
+          <div className='flex justify-center'>
+            <h3 className='error-card text-center'>No saved recipe found</h3>
           </div>
         )
       )}
 
-      <div className="p-2 sm:mx-6 grid grid-cols-cards gap-4 items-center">
+      <div className='p-2 mb-4 mx-1 flex gap-3 flex-wrap justify-center mt-4'>
         {recipes.length > 0 &&
           recipes.map((recipe, index) => <Card key={index} recipe={recipe} />)}
       </div>

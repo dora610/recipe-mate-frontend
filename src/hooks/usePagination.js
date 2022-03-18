@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { API } from '../backend';
 
-function usePagination(count, cb) {
+function usePagination(count, cb, baseUrl) {
   const [currPage, setCurrPage] = useState(1);
   const [pageCount, setPageCount] = useState(Math.ceil(count / 5));
 
@@ -11,19 +11,19 @@ function usePagination(count, cb) {
 
   const prevPage = () => {
     if (currPage <= 1) return;
-    cb(`${API}/recipe/all?page=${currPage - 1}`);
+    cb(`${baseUrl}?page=${currPage - 1}`);
     setCurrPage(currPage - 1);
   };
 
   const nextPage = () => {
     if (currPage >= pageCount) return;
-    cb(`${API}/recipe/all?page=${currPage + 1}`);
+    cb(`${baseUrl}?page=${currPage + 1}`);
     setCurrPage(currPage + 1);
   };
 
   const changePage = (pageIndex) => {
     if (pageIndex < 1 || pageIndex > pageCount) return;
-    cb(`${API}/recipe/all?page=${pageIndex}`);
+    cb(`${baseUrl}?page=${pageIndex}`);
     setCurrPage(pageIndex);
   };
 
