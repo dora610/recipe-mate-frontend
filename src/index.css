@@ -79,10 +79,10 @@ body {
     @apply bg-white px-2 pb-2 pt-1 rounded-md text-center capitalize text-slate-600 shadow-md;
   }
   .navlinkClassActive {
-    @apply text-blue-800 rounded-xl font-medium;
+    @apply text-fuchsia-200 rounded-xl font-medium;
   }
   .navlinkSidebarActive {
-    @apply bg-purple-500 rounded-md text-stone-300 px-4 py-1;
+    @apply bg-purple-500 rounded-md text-fuchsia-600 px-4 py-1;
   }
   .navlinkSidebarDeafult {
     @apply px-4 py-1;
@@ -113,6 +113,9 @@ body {
   }
   .text-warn {
     @apply text-yellow-500 text-center mx-2 my-2 font-medium;
+  }
+  .nav-dropdown {
+    @apply hover:text-fuchsia-600 hover:cursor-pointer px-3 py-2;
   }
 }
 

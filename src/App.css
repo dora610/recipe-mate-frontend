@@ -15,8 +15,13 @@ nav.bg-change {
 }
 
 @media screen and (max-width: 640px) {
-  .brand-name ~ a {
+  .brand-name ~ a,
+  .profile {
     display: none;
+  }
+  nav {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* height: 100vh; */
   }
 
   nav button {
@@ -27,9 +32,19 @@ nav.bg-change {
     grid-auto-flow: row;
   }
 
-  nav > a.show {
+  nav > .show {
     display: block;
-    text-align: center;
+  }
+  .profile {
+    padding-left: 0;
+  }
+  .profile-tooltip {
+    display: flex;
+    width: 100%;
+    margin-top: 0;
+    position: relative;
+    top: 0;
+    background-color: inherit;
   }
 }
 

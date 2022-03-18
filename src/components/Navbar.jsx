@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
+import { IoPersonCircle } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import authContext from '../context/authContext';
+import useAuth from '../hooks/useAuth';
 
 function Navbar() {
-  const { user, signOut } = useContext(authContext);
+  const { user, signOut } = useAuth();
   const [isCollpased, setIsCollpased] = useState(true);
 
   const toggleCollapseClass = !isCollpased
-    ? 'uncollapse bg-opacity-70'
-    : 'bg-opacity-10';
+    ? 'uncollapse'
+    : 'bg-white bg-opacity-10 backdrop-blur-2xl';
 
   const signOutHandler = () => {
     signOut()
@@ -38,51 +39,76 @@ function Navbar() {
 
   return (
     <nav
-      className={`grid gap-8 sm-px-10 px-4 shadow-sm text-gray-900 grid-cols-1 grid-flow-col items-center justify-items-stretch bg-white bg-opacity-10 backdrop-blur-2xl ${toggleCollapseClass}`}
+      className={`grid gap-8 sm-px-10 px-5 lg:px-28 shadow-sm text-gray-900 grid-cols-1 grid-flow-col items-center justify-items-stretch ${toggleCollapseClass} z-10`}
       onClick={clickHandler}
     >
-      <Link
-        className="brand-name py-3 font-semibold text-xl navlinkClassDefault"
-        to="/"
-      >
+      <Link className='brand-name py-3 font-semibold text-xl' to='/'>
         Home
       </Link>
       {user?.r > 0 && (
-        <NavLink className={getNavLinkClass} to="/admin">
+        <NavLink className={getNavLinkClass} to='/admin'>
           Admin Dashboard
         </NavLink>
       )}
       {user ? (
         <>
-          <NavLink className={getNavLinkClass} to="/recipe/addRecipe">
+          <NavLink className={getNavLinkClass} to='/recipe/addRecipe'>
             Add Recipe
           </NavLink>
-          <NavLink className={getNavLinkClass} to="/recipe/saved">
+          {/* <NavLink className={getNavLinkClass} to='/recipe/saved'>
             Saved Recipe
           </NavLink>
           <Link
-            to="/"
+            to='/'
             // onClick={signOutHandler}
             className={`signout ${!isCollpased && 'show'} navlinkClassDefault`}
           >
             Sign Out
-          </Link>
+          </Link> */}
+          <span
+            className={`profile flex flex-col relative px-4 py-2 rounded-t-md ${
+              !isCollpased ? 'uncollapse show' : 'group hover:bg-fuchsia-50'
+            }`}
+          >
+            <span className='flex items-center gap-6 group-hover:text-fuchsia-600'>
+              <p className=''>{user.fullName}</p>
+              <IoPersonCircle className='profile-icon text-2xl' />
+            </span>
+
+            <ul
+              className={`profile-tooltip flex-col gap-2 py-2 bg-fuchsia-50 absolute z-20 top-9 right-0 w-full rounded-b-lg hidden group-hover:flex text-sm transition-transform duration-100 ease-in-out`}
+            >
+              <li className='text-center'></li>
+              <NavLink className='nav-dropdown' to='/profile'>
+                Profile
+              </NavLink>
+              <NavLink className='nav-dropdown' to='/myrecipe'>
+                My Recipes
+              </NavLink>
+              <NavLink className='nav-dropdown' to='/recipe/saved'>
+                Saved Recipes
+              </NavLink>
+              <NavLink className='nav-dropdown' to='/'>
+                Sign Out
+              </NavLink>
+            </ul>
+          </span>
         </>
       ) : (
         <>
-          <NavLink className={getNavLinkClass} to="/signin">
+          <NavLink className={getNavLinkClass} to='/signin'>
             Sign In
           </NavLink>
-          <NavLink className={getNavLinkClass} to="/signup">
+          <NavLink className={getNavLinkClass} to='/signup'>
             Sign Up
           </NavLink>
         </>
       )}
       {(() => {
         let btnLabel = isCollpased ? (
-          <FaBars className="ham-btn" />
+          <FaBars className='ham-btn' />
         ) : (
-          <MdClose className="text-2xl fill-red-600" />
+          <MdClose className='text-2xl fill-red-600' />
         );
         return (
           <button
