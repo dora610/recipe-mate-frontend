@@ -42,8 +42,8 @@ function Navbar() {
       className={`grid gap-8 sm-px-10 px-5 lg:px-28 shadow-sm text-gray-900 grid-cols-1 grid-flow-col items-center justify-items-stretch ${toggleCollapseClass} z-10`}
       onClick={clickHandler}
     >
-      <Link className='brand-name py-3 font-semibold text-xl' to='/'>
-        Home
+      <Link className='brand-name py-2 font-semibold text-xl' to='/'>
+        <span className='text-3xl'>🍽️</span>
       </Link>
       {user?.r > 0 && (
         <NavLink className={getNavLinkClass} to='/admin'>
@@ -55,40 +55,33 @@ function Navbar() {
           <NavLink className={getNavLinkClass} to='/recipe/addRecipe'>
             Add Recipe
           </NavLink>
-          {/* <NavLink className={getNavLinkClass} to='/recipe/saved'>
-            Saved Recipe
-          </NavLink>
-          <Link
-            to='/'
-            // onClick={signOutHandler}
-            className={`signout ${!isCollpased && 'show'} navlinkClassDefault`}
-          >
-            Sign Out
-          </Link> */}
+
           <span
             className={`profile flex flex-col relative px-4 py-2 rounded-t-md ${
-              !isCollpased ? 'uncollapse show' : 'group hover:bg-fuchsia-50'
+              !isCollpased
+                ? 'uncollapse show'
+                : 'group hover:bg-fuchsia-50 hover:shadow-xl'
             }`}
           >
-            <span className='flex items-center gap-6 group-hover:text-fuchsia-600'>
+            <span className='flex items-center gap-3 group-hover:text-fuchsia-600'>
               <p className=''>{user.fullName}</p>
               <IoPersonCircle className='profile-icon text-2xl' />
             </span>
 
             <ul
-              className={`profile-tooltip flex-col gap-2 py-2 bg-fuchsia-50 absolute z-20 top-9 right-0 w-full rounded-b-lg hidden group-hover:flex text-sm transition-transform duration-100 ease-in-out`}
+              className={`profile-tooltip flex-col gap-1 py-2 bg-fuchsia-50 absolute z-20 top-9 right-0 w-full rounded-b-lg hidden group-hover:flex text-sm transition-transform duration-100 ease-in-out`}
             >
               <li className='text-center'></li>
               <NavLink className='nav-dropdown' to='/profile'>
                 Profile
               </NavLink>
-              <NavLink className='nav-dropdown' to='/myrecipe'>
+              <NavLink className='nav-dropdown' to='/myrecipes'>
                 My Recipes
               </NavLink>
-              <NavLink className='nav-dropdown' to='/recipe/saved'>
+              <NavLink className='nav-dropdown' to='/saved'>
                 Saved Recipes
               </NavLink>
-              <NavLink className='nav-dropdown' to='/'>
+              <NavLink className='nav-dropdown' to='/' onClick={signOutHandler}>
                 Sign Out
               </NavLink>
             </ul>

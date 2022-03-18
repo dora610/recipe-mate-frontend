@@ -210,92 +210,92 @@ function AddRecipe() {
   };
 
   return (
-    <div className="bg-fuchsia-50/50 py-4">
-      <div className="form-card-wide">
-        <h2 className="form-card-title">
+    <div className='bg-fuchsia-50/50 py-4'>
+      <div className='form-card-wide'>
+        <h2 className='form-card-title'>
           {isUpdateRecipe ? 'Update Recipe' : 'Add Recipe'}
         </h2>
         {error && (
-          <div className="text-danger">
+          <div className='text-danger'>
             <p>{error}</p>
           </div>
         )}
         {isLoading && (
-          <div className="text-warn">
+          <div className='text-warn'>
             <p>Loading...</p>
           </div>
         )}
 
         <form
           onSubmit={handleSubmit}
-          className="my-6 py-4 text-base font-normal w-full text-slate-700 border-t-2 border-fuchsia-200 capitalize flex flex-col items-center justify-between gap-6"
-          encType="multipart/form-data"
+          className='my-6 py-4 text-base font-normal w-full text-slate-700 border-t-2 border-fuchsia-200 capitalize flex flex-col items-center justify-between gap-6'
+          encType='multipart/form-data'
         >
-          <div className="grid lg:grid-rows-[7] lg:grid-cols-3 sm:grid-cols-2 gap-x-6 gap-y-2 lg:grid-flow-col items-start">
-            <div className="photo-section px-2 lg:col-start-1 lg:row-start-1 lg:row-end-7 lg:row-span-[7] row-span-6">
-              <div className="preview-section">
-                <div className="thumbnail mb-7 shadow-lg h-80 rounded-md">
+          <div className='grid lg:grid-rows-[7] lg:grid-cols-3 sm:grid-cols-2 gap-x-6 gap-y-2 lg:grid-flow-col items-start'>
+            <div className='photo-section px-2 lg:col-start-1 lg:row-start-1 lg:row-end-7 lg:row-span-[7] row-span-6'>
+              <div className='preview-section'>
+                <div className='thumbnail mb-7 shadow-lg h-80 rounded-md'>
                   <img
                     src={isUpdateRecipe ? imgRef.current : ''}
-                    alt="Upload recipe photo"
-                    className="flex justify-center items-center bg-gray-100 text-slate-400 object-cover w-full h-full rounded-md"
+                    // alt='Upload recipe photo'
+                    className='flex justify-center items-center bg-gray-100 text-slate-400 object-cover w-full h-full rounded-md'
                   />
                 </div>
-                <p className="file-name">
-                  filename: <span className="text-slate-500"></span>
+                <p className='file-name'>
+                  filename: <span className='text-slate-500'></span>
                 </p>
-                <p className="file-size">
-                  filesize: <span className="text-slate-500"></span>
+                <p className='file-size'>
+                  filesize: <span className='text-slate-500'></span>
                 </p>
               </div>
               <input
-                type="file"
-                name="photo"
-                id="photo"
+                type='file'
+                name='photo'
+                id='photo'
                 onChange={fileUplaodHandler}
-                className="file-upload-input"
+                className='file-upload-input'
               />
             </div>
 
-            <div className="flex flex-col justify-start">
-              <label htmlFor="name" className="">
+            <div className='flex flex-col justify-start'>
+              <label htmlFor='name' className=''>
                 Recipe Name
               </label>
               <input
-                type="text"
-                name="name"
-                id="name"
-                className="input-normal"
+                type='text'
+                name='name'
+                id='name'
+                className='input-normal'
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
 
-            <div className="flex flex-col justify-start h-36">
-              <label htmlFor="description">Description</label>
+            <div className='flex flex-col justify-start h-36'>
+              <label htmlFor='description'>Description</label>
               <textarea
-                name="description"
-                id="description"
-                cols="20"
-                rows="3"
-                className="col-span-3 px-4 py-2 mt-3 rounded-lg border-stone-200 bg-fuchsia-50 hover:bg-stone-100/50 hover:border-fuchsia-200 focus:ring-1 focus:ring-fuchsia-500 focus:border-fuchsia-500"
+                name='description'
+                id='description'
+                cols='20'
+                rows='3'
+                className='col-span-3 px-4 py-2 mt-3 rounded-lg border-stone-200 bg-fuchsia-50 hover:bg-stone-100/50 hover:border-fuchsia-200 focus:ring-1 focus:ring-fuchsia-500 focus:border-fuchsia-500'
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               ></textarea>
             </div>
 
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="type">Type</label>
+            <div className='grid grid-cols-2 items-center'>
+              <label htmlFor='type'>Type</label>
               <select
-                name="type"
-                id="type"
-                className="input-normal"
+                name='type'
+                id='type'
+                className='input-normal'
                 required
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="" disabled>
+                <option value='' disabled>
                   choose type
                 </option>
                 {typeOptionRef.current.map((type, index) => (
@@ -306,17 +306,17 @@ function AddRecipe() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="course">Course</label>
+            <div className='grid grid-cols-2 items-center'>
+              <label htmlFor='course'>Course</label>
               <select
-                name="course"
-                id="course"
-                className="input-normal"
+                name='course'
+                id='course'
+                className='input-normal'
                 required
                 value={course}
                 onChange={(e) => setCourse(e.target.value)}
               >
-                <option value="" disabled>
+                <option value='' disabled>
                   choose course
                 </option>
                 {courseOptionRef.current.map((e, index) => (
@@ -327,63 +327,63 @@ function AddRecipe() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="preparationTime">Preparation Time in min</label>
+            <div className='grid grid-cols-2 items-center'>
+              <label htmlFor='preparationTime'>Preparation Time in min</label>
               <input
-                type="number"
-                name="preparationTime"
-                id="preparationTime"
-                className="input-normal"
+                type='number'
+                name='preparationTime'
+                id='preparationTime'
+                className='input-normal'
                 required
                 value={prepTime}
                 onChange={(e) => setPrepTime(e.target.value)}
               />
             </div>
 
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="cookTime">Cook Time in min</label>
+            <div className='grid grid-cols-2 items-center'>
+              <label htmlFor='cookTime'>Cook Time in min</label>
               <input
-                type="number"
-                name="cookTime"
-                id="cookTime"
-                className="input-normal"
+                type='number'
+                name='cookTime'
+                id='cookTime'
+                className='input-normal'
                 required
                 value={cookTime}
                 onChange={(e) => setCookTime(e.target.value)}
               />
             </div>
 
-            <div className="lg:row-span-2 row-span-3  items-baseline">
-              <label htmlFor="ingredients">Ingredients</label>
-              <div className="grid lg:grid-cols-4 grid-cols-[minmax(8rem,_1fr)_3rem] gap-2 items-center">
+            <div className='lg:row-span-2 row-span-3  items-baseline'>
+              <label htmlFor='ingredients'>Ingredients</label>
+              <div className='grid lg:grid-cols-4 grid-cols-[minmax(8rem,_1fr)_3rem] gap-2 items-center'>
                 <input
-                  type="text"
-                  name="ingredients"
-                  id="ingredients"
+                  type='text'
+                  name='ingredients'
+                  id='ingredients'
                   ref={ingrRef}
-                  className="input-normal lg:col-span-3"
+                  className='input-normal lg:col-span-3'
                 />
                 <button
-                  className="bg-fuchsia-100 rounded-xl  h-10 text-center group  hover:text-white hover:bg-fuchsia-500"
+                  className='bg-fuchsia-100 rounded-xl  h-10 text-center group  hover:text-white hover:bg-fuchsia-500'
                   onClick={addIngredient}
-                  type="button"
+                  type='button'
                 >
-                  <FaPlus className="fill-fuchsia-400 h-4 mx-auto group-hover:fill-white" />
+                  <FaPlus className='fill-fuchsia-400 h-4 mx-auto group-hover:fill-white' />
                 </button>
               </div>
               {ingrArr.length > 0 && (
-                <ul className="w-full row-span-3 flex flex-wrap gap-2 bg-gray-200/50 px-4 py-4 rounded-md max-h-32 overflow-y-auto my-2">
+                <ul className='w-full row-span-3 flex flex-wrap gap-2 bg-gray-200/50 px-4 py-4 rounded-md max-h-32 overflow-y-auto my-2'>
                   {ingrArr.map((i, index) => (
                     <li
                       key={index}
-                      className="min-card-blocks flex justify-between items-baseline gap-2 hover:cursor-pointer"
+                      className='min-card-blocks flex justify-between items-baseline gap-2 hover:cursor-pointer'
                     >
                       <h5>{i}</h5>
                       <button
-                        type="button"
+                        type='button'
                         onClick={(e) => deleteIngr(e, index)}
                       >
-                        <FaRegTrashAlt className="fill-red-400 h-3" />
+                        <FaRegTrashAlt className='fill-red-400 h-3' />
                       </button>
                     </li>
                   ))}
@@ -391,41 +391,41 @@ function AddRecipe() {
               )}
             </div>
 
-            <div className="lg:row-span-3 row-span-4 lg:h-64 min-h-44 max-h-80">
-              <label htmlFor="steps">Steps</label>
-              <div className="grid lg:grid-cols-4 grid-cols-[minmax(8rem,_1fr)_3rem] gap-2 items-start">
+            <div className='lg:row-span-3 row-span-4 lg:h-64 min-h-44 max-h-80'>
+              <label htmlFor='steps'>Steps</label>
+              <div className='grid lg:grid-cols-4 grid-cols-[minmax(8rem,_1fr)_3rem] gap-2 items-start'>
                 <textarea
-                  name="steps"
-                  id="steps"
-                  rows="3"
+                  name='steps'
+                  id='steps'
+                  rows='3'
                   ref={stepsRef}
-                  className="input-normal lg:col-span-3"
+                  className='input-normal lg:col-span-3'
                 ></textarea>
                 <button
-                  type="button"
-                  className="bg-fuchsia-100 rounded-xl mt-2 h-10 text-center group  hover:text-white hover:bg-fuchsia-500"
+                  type='button'
+                  className='bg-fuchsia-100 rounded-xl mt-2 h-10 text-center group  hover:text-white hover:bg-fuchsia-500'
                   onClick={addSteps}
                 >
-                  <FaPlus className="fill-fuchsia-400 h-4 mx-auto group-hover:fill-white" />
+                  <FaPlus className='fill-fuchsia-400 h-4 mx-auto group-hover:fill-white' />
                 </button>
               </div>
-              <div className="max-h-48 bg-gray-200/50 rounded-lg overflow-y-auto">
+              <div className='max-h-48 bg-gray-200/50 rounded-lg overflow-y-auto'>
                 {steps.map((s, index) => (
                   <details
                     key={index}
-                    className="text-slate-900 open:bg-white open:shadow-xl open:rounded-lg open:my-2 px-4 py-2 mx-2"
+                    className='text-slate-900 open:bg-white open:shadow-xl open:rounded-lg open:my-2 px-4 py-2 mx-2'
                   >
-                    <summary className="text-sm leading-7 font-semibold select-none marker:text-fuchsia-600">
+                    <summary className='text-sm leading-7 font-semibold select-none marker:text-fuchsia-600'>
                       <span>Step {index + 1}</span>
                       <button
-                        type="button"
-                        className="ml-4"
+                        type='button'
+                        className='ml-4'
                         onClick={(e) => deleteStep(e, index)}
                       >
-                        <FaRegTrashAlt className="fill-red-400 h-3" />
+                        <FaRegTrashAlt className='fill-red-400 h-3' />
                       </button>
                     </summary>
-                    <p className="text-slate-700 leading-6 text-sm py-2 ">
+                    <p className='text-slate-700 leading-6 text-sm py-2 '>
                       {s}
                     </p>
                   </details>
@@ -442,9 +442,9 @@ function AddRecipe() {
               : 'Add Recipe';
             return (
               <button
-                type="submit"
+                type='submit'
                 disabled={isLoading}
-                className="btn-primary w-1/3 disabled:bg-yellow-500"
+                className='btn-primary w-1/3 disabled:bg-yellow-500'
               >
                 {btnLable}
               </button>

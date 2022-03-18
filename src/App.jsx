@@ -19,7 +19,11 @@ import ShowRecipe from './pages/ShowRecipe';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import RecipDataProvider from './providers/RecipDataProvider';
-import SavedRecipes from './pages/SavedRecipes';
+import SavedRecipes from './module/SavedRecipes';
+import TrendingSection from './module/TrendingSection';
+import MyRecipes from './module/MyRecipes';
+import Profile from './pages/Profile';
+import UpdatePassword from './pages/UpdatePassword';
 const AddRecipe = lazy(() => import('./pages/AddRecipe'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
@@ -31,25 +35,45 @@ function App() {
         <ToastContainer />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path='/' element={<Layout />}>
               <Route
-                index
+                path=''
                 element={
                   <RequireAuth>
                     <Home />
                   </RequireAuth>
                 }
-              />
-              <Route path="signin" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="forgotpassword" element={<ForgotPassword />} />
+              >
+                <Route index element={<TrendingSection />} />
+                <Route path='saved' element={<SavedRecipes />} />
+                <Route path='myrecipes' element={<MyRecipes />} />
+              </Route>
+              <Route path='signin' element={<SignIn />} />
+              <Route path='signup' element={<SignUp />} />
+              <Route path='forgotpassword' element={<ForgotPassword />} />
               <Route
-                path="resetpassword/:resetToken"
+                path='resetpassword/:resetToken'
                 element={<ResetPassword />}
               />
-              <Route path="recipe/">
+              <Route
+                path='profile'
+                element={
+                  <RequireAuth>
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path='updatepassword'
+                element={
+                  <RequireAuth>
+                    <UpdatePassword />
+                  </RequireAuth>
+                }
+              />
+              <Route path='recipe/'>
                 <Route
-                  path=":recipeId"
+                  path=':recipeId'
                   element={
                     <RequireAuth>
                       <ShowRecipe />
@@ -57,7 +81,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="addRecipe"
+                  path='addRecipe'
                   element={
                     <RequireAuth>
                       <React.Suspense fallback={<>Loading...</>}>
@@ -67,7 +91,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="updateRecipe"
+                  path='updateRecipe'
                   element={
                     <RequireAuth>
                       <React.Suspense fallback={<>Loading...</>}>
@@ -76,20 +100,20 @@ function App() {
                     </RequireAuth>
                   }
                 />
-                <Route
+                {/* <Route
                   path="saved"
                   element={
                     <RequireAuth>
                       <SavedRecipes />
                     </RequireAuth>
                   }
-                />
+                /> */}
               </Route>
-              <Route path="*" element={<NotFound />} />
+              <Route path='*' element={<NotFound />} />
             </Route>
 
             <Route
-              path="admin"
+              path='admin'
               element={
                 <React.Suspense fallback={<>Loading..</>}>
                   <AdminLayout />
@@ -106,9 +130,9 @@ function App() {
                   </React.Suspense>
                 }
               />
-              <Route path="user" element={<UserDetails />}>
+              <Route path='user' element={<UserDetails />}>
                 <Route
-                  path=":userId"
+                  path=':userId'
                   element={
                     <RequireAdminAuth>
                       <UserForm />
@@ -116,9 +140,9 @@ function App() {
                   }
                 />
               </Route>
-              <Route path="recipe" element={<RecipeDetails />}>
+              <Route path='recipe' element={<RecipeDetails />}>
                 <Route
-                  path=":recipeId"
+                  path=':recipeId'
                   element={
                     <RequireAdminAuth>
                       <RecipeForm />
